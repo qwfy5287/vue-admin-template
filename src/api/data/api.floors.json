@@ -1,0 +1,136 @@
+{
+  "list": [
+    {
+      "floorId": 5402,
+      "regionId": 150,
+      "buildingId": 1,
+      "floorName": "出发层",
+      "height": 90,
+      "width": 400,
+      "floorType": "商铺",
+      "mapUrl": "xiamenjichangt4_1_chufaceng.svg",
+      "merchantId": 1,
+      "buildingName": "T4"
+    },
+    {
+      "floorId": 5403,
+      "regionId": 150,
+      "buildingId": 1,
+      "floorName": "抵达层",
+      "height": 92,
+      "width": 363,
+      "floorType": "商铺",
+      "mapUrl": "xiamenjichangt4_1_didaceng.svg",
+      "merchantId": 1,
+      "buildingName": "T4"
+    },
+    {
+      "floorId": 5404,
+      "regionId": 150,
+      "buildingId": 1,
+      "floorName": "西指廊夹层",
+      "height": 51,
+      "width": 339,
+      "floorType": "商铺",
+      "mapUrl": "xiamenjichangt4_1_zhilangjia.svg",
+      "merchantId": 1,
+      "buildingName": "T4"
+    },
+    {
+      "floorId": 5405,
+      "regionId": 150,
+      "buildingId": 1,
+      "floorName": "西指廊一层",
+      "height": 300,
+      "width": 40,
+      "floorType": "商铺",
+      "mapUrl": "xiamenjichangt4_1_zhilang1.svg",
+      "merchantId": 1,
+      "buildingName": "T4"
+    },
+    {
+      "floorId": 5406,
+      "regionId": 150,
+      "buildingId": 1,
+      "floorName": "西指廊二层",
+      "height": 326,
+      "width": 106,
+      "floorType": "商铺",
+      "mapUrl": "xiamenjichangt4_1_zhilang2.svg",
+      "merchantId": 1,
+      "buildingName": "T4"
+    },
+    {
+      "floorId": 5407,
+      "regionId": 150,
+      "buildingId": 1,
+      "floorName": "主楼三层",
+      "height": 37,
+      "width": 135,
+      "floorType": "商铺",
+      "mapUrl": "xiamenjichangt4_1_zhulou3.svg",
+      "merchantId": 1,
+      "buildingName": "T4"
+    },
+    {
+      "floorId": 5408,
+      "regionId": 150,
+      "buildingId": 1,
+      "floorName": "地下室",
+      "height": 96,
+      "width": 325,
+      "floorType": "商铺",
+      "mapUrl": "xiamenjichangt4_1_dixiashi.svg",
+      "merchantId": 1,
+      "buildingName": "T4"
+    },
+    {
+      "floorId": 5875,
+      "regionId": 150,
+      "buildingId": 4954,
+      "floorName": "停车层",
+      "height": 174,
+      "width": 284,
+      "floorType": "停车层",
+      "mapUrl": "xiamenT3_4954_5875.svg",
+      "merchantId": 1,
+      "buildingName": "T3"
+    },
+    {
+      "floorId": 5876,
+      "regionId": 150,
+      "buildingId": 4954,
+      "floorName": "到达层",
+      "height": 102,
+      "width": 352,
+      "floorType": "到达层",
+      "mapUrl": "xiamenT3_4954_5876.svg",
+      "merchantId": 1,
+      "buildingName": "T3"
+    },
+    {
+      "floorId": 5877,
+      "regionId": 150,
+      "buildingId": 4954,
+      "floorName": "出发层",
+      "height": 138,
+      "width": 805,
+      "floorType": "出发层",
+      "mapUrl": "xiamenT3_4954_5877.svg",
+      "merchantId": 1,
+      "buildingName": "T3"
+    },
+    {
+      "floorId": 5878,
+      "regionId": 150,
+      "buildingId": 4954,
+      "floorName": "出发夹层",
+      "height": 133.8,
+      "width": 783.34,
+      "floorType": "出发夹层",
+      "mapUrl": "xiamenT3_4954_5878.svg",
+      "merchantId": 1,
+      "buildingName": "T3"
+    }
+  ]
+}

@@ -27,6 +27,10 @@ service.interceptors.request.use(
 // response 拦截器
 service.interceptors.response.use(
   response => {
+    if (!response.data.hasOwnProperty('code')) {
+      return response.data
+    }
+
     /**
      * code为非20000是抛错 可结合自己业务进行修改
      */

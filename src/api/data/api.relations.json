@@ -1,0 +1,122 @@
+{
+    "nodes": [{
+            "id": "56a65248c1ae3b6229319b2bf9dc1251",
+            "name": "主节点"
+        },
+        {
+            "id": "492002c13cd84294e98d04febf32c58b",
+            "name": "492002c13cd84294e98d04febf32c58b"
+        },
+        {
+            "id": "49fc81278a652fe63caf299e410b17a9",
+            "name": "49fc81278a652fe63caf299e410b17a9"
+        },
+        {
+            "id": "1111111111111111111111",
+            "name": "1111111111111111111111"
+        },
+        {
+            "id": "0aac26b1bd515ace041bb07a277bb47e",
+            "name": "0aac26b1bd515ace041bb07a277bb47e"
+        },
+        {
+            "id": "02524082f54fcdc49f72e00e6d165c2e",
+            "name": "02524082f54fcdc49f72e00e6d165c2e"
+        }
+    ],
+    "links": [{
+            "id": "56a65248c1ae3b6229319b2bf9dc1251-0aac26b1bd515ace041bb07a277bb47e",
+            "startNode": "56a65248c1ae3b6229319b2bf9dc1251",
+            "endNode": "0aac26b1bd515ace041bb07a277bb47e",
+            "type": null,
+            "desc": "1次",
+            "endNodeName": "王**",
+            "flights":{
+                "flightNo": 123,
+                "flightDate": "1次",
+                "flightPnr": "王**"
+            }
+        },
+        {
+            "id": "0aac26b1bd515ace041bb07a277bb47e-492002c13cd84294e98d04febf32c58b",
+            "startNode": "0aac26b1bd515ace041bb07a277bb47e",
+            "endNode": "492002c13cd84294e98d04febf32c58b",
+            "type": null,
+            "desc": "1次",
+            "endNodeName": "薛**"
+        },
+        {
+            "id": "0aac26b1bd515ace041bb07a277bb47e-49fc81278a652fe63caf299e410b17a9",
+            "startNode": "0aac26b1bd515ace041bb07a277bb47e",
+            "endNode": "49fc81278a652fe63caf299e410b17a9",
+            "type": "10003",
+            "desc": "1次",
+            "endNodeName": "林**"
+        },
+        {
+            "id": "0aac26b1bd515ace041bb07a277bb47e-1111111111111111111111",
+            "startNode": "0aac26b1bd515ace041bb07a277bb47e",
+            "endNode": "1111111111111111111111",
+            "type": "10002",
+            "desc": "1次",
+            "endNodeName": "张**"
+        },
+        {
+            "id": "0aac26b1bd515ace041bb07a277bb47e-02524082f54fcdc49f72e00e6d165c2e",
+            "startNode": "0aac26b1bd515ace041bb07a277bb47e",
+            "endNode": "02524082f54fcdc49f72e00e6d165c2e",
+            "type": "10001",
+            "desc": "37次",
+            "endNodeName": "苏**"
+        },
+        {
+            "id": "56a65248c1ae3b6229319b2bf9dc1251-492002c13cd84294e98d04febf32c58b",
+            "startNode": "56a65248c1ae3b6229319b2bf9dc1251",
+            "endNode": "492002c13cd84294e98d04febf32c58b",
+            "type": null,
+            "desc": "1次",
+            "endNodeName": "薛**"
+        },
+        {
+            "id": "492002c13cd84294e98d04febf32c58b-49fc81278a652fe63caf299e410b17a9",
+            "startNode": "492002c13cd84294e98d04febf32c58b",
+            "endNode": "49fc81278a652fe63caf299e410b17a9",
+            "type": null,
+            "desc": "1次",
+            "endNodeName": "林**"
+        },
+        {
+            "id": "492002c13cd84294e98d04febf32c58b-1111111111111111111111",
+            "startNode": "492002c13cd84294e98d04febf32c58b",
+            "endNode": "1111111111111111111111",
+            "type": null,
+            "desc": "1次",
+            "endNodeName": "张**"
+        },
+
+        {
+            "id": "49fc81278a652fe63caf299e410b17a9-1111111111111111111111",
+            "startNode": "49fc81278a652fe63caf299e410b17a9",
+            "endNode": "1111111111111111111111",
+            "type": null,
+            "desc": "1次",
+            "endNodeName": "张**"
+        },
+        {
+            "id": "56a65248c1ae3b6229319b2bf9dc1251-49fc81278a652fe63caf299e410b17a9",
+            "startNode": "56a65248c1ae3b6229319b2bf9dc1251",
+            "endNode": "49fc81278a652fe63caf299e410b17a9",
+            "type": null,
+            "desc": "1次",
+            "endNodeName": "林**"
+        },
+        {
+            "id": "56a65248c1ae3b6229319b2bf9dc1251-1111111111111111111111",
+            "startNode": "56a65248c1ae3b6229319b2bf9dc1251",
+            "endNode": "1111111111111111111111",
+            "type": null,
+            "desc": "10次",
+            "endNodeName": "张**"
+        }
+    ]
+}
