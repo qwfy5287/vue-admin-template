@@ -23,7 +23,11 @@ import Layout from '../views/layout/Layout'
   }
 **/
 export const constantRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
   { path: '/404', component: () => import('@/views/404'), hidden: true },
 
   {
@@ -32,10 +36,12 @@ export const constantRouterMap = [
     redirect: '/dashboard',
     name: 'Dashboard',
     hidden: true,
-    children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
-    }]
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index')
+      }
+    ]
   },
 
   {
@@ -103,13 +109,15 @@ export const constantRouterMap = [
             children: [
               {
                 path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+                component: () =>
+                  import('@/views/nested/menu1/menu1-2/menu1-2-1'),
                 name: 'Menu1-2-1',
                 meta: { title: 'Menu1-2-1' }
               },
               {
                 path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+                component: () =>
+                  import('@/views/nested/menu1/menu1-2/menu1-2-2'),
                 name: 'Menu1-2-2',
                 meta: { title: 'Menu1-2-2' }
               }
@@ -139,6 +147,62 @@ export const constantRouterMap = [
         path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
         meta: { title: 'External Link', icon: 'link' }
       }
+    ]
+  },
+
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/table',
+  //   name: 'Echarts',
+  //   meta: { title: 'Echarts', icon: 'example' },
+  //   children: [
+  //     // {
+  //     //   path: 'table',
+  //     //   name: 'Table',
+  //     //   component: () => import('@/views/table/index'),
+  //     //   meta: { title: 'Table', icon: 'table' }
+  //     // },
+  //     // {
+  //     //   path: 'tree',
+  //     //   name: 'Tree',
+  //     //   component: () => import('@/views/tree/index'),
+  //     //   meta: { title: 'Tree', icon: 'tree' }
+  //     // }
+  //   ]
+  // },
+
+  {
+    path: '/echarts-big',
+    component: Layout,
+    redirect: '/echarts-big/bar',
+    name: 'EchartsBig',
+    meta: { title: 'EchartsBig', icon: 'example' },
+    children: [
+      {
+        path: 'big-main',
+        name: 'Main',
+        component: () => import('@/views/echarts-big/big-main'),
+        meta: { title: 'Main', icon: 'table' }
+      },
+      {
+        path: 'big-bar',
+        name: 'Bar',
+        component: () => import('@/views/echarts-big/big-bar'),
+        meta: { title: 'Bar', icon: 'table' }
+      },
+      {
+        path: 'pie',
+        name: 'Pie',
+        component: () => import('@/views/echarts-big/pie'),
+        meta: { title: 'Pie', icon: 'table' }
+      }
+      // {
+      //   path: 'tree',
+      //   name: 'Tree',
+      //   component: () => import('@/views/tree/index'),
+      //   meta: { title: 'Tree', icon: 'tree' }
+      // }
     ]
   },
 
