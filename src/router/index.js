@@ -8,6 +8,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '../views/layout/Layout'
+import LayoutBig from '../views/layout/LayoutBig'
 
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -174,7 +175,7 @@ export const constantRouterMap = [
 
   {
     path: '/echarts-big',
-    component: Layout,
+    component: LayoutBig,
     redirect: '/echarts-big/bar',
     name: 'EchartsBig',
     meta: { title: 'EchartsBig', icon: 'example' },
@@ -192,6 +193,12 @@ export const constantRouterMap = [
         meta: { title: 'Bar', icon: 'table' }
       },
       {
+        path: 'big-bar-shadow',
+        name: 'BarShadow',
+        component: () => import('@/views/echarts-big/big-bar-shadow'),
+        meta: { title: 'BarShadow', icon: 'table' }
+      },
+      {
         path: 'pie',
         name: 'Pie',
         component: () => import('@/views/echarts-big/pie'),
@@ -203,6 +210,23 @@ export const constantRouterMap = [
       //   component: () => import('@/views/tree/index'),
       //   meta: { title: 'Tree', icon: 'tree' }
       // }
+    ]
+  },
+
+  // 马尾政务大屏
+  {
+    path: '/project-mgb',
+    component: LayoutBig,
+    redirect: '/project-mgb/economic/economic-main',
+    name: 'ProjectMgb',
+    meta: { title: 'ProjectMgb', icon: 'example' },
+    children: [
+      {
+        path: '/economic/economic-main',
+        name: 'Economic',
+        component: () => import('@/views/project-mgb/economic/economic-main'),
+        meta: { title: '区域经济', icon: 'table' }
+      }
     ]
   },
 

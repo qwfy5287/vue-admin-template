@@ -21,7 +21,11 @@ export const echartSetting = {
       fontSize: fontSizeTooltip
     }
   },
-  pie: {}
+  pie: {},
+  // 折线图: 线宽
+  lineStyle: {
+    width: 4
+  }
 }
 
 export function ss() {}

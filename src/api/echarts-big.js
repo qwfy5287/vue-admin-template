@@ -45,3 +45,108 @@ export function totalBudgetRevenue() {
     })
   })
 }
+
+/**
+ * 森林生态效益补偿基金 万元
+ */
+export function forestEcologicalFund() {
+  // return request({
+  //   url: '/home/care/socialPremiumNumber',
+  //   method: 'get'
+  // })
+
+  return new Promise(resolve => {
+    resolve({
+      msg: 'success',
+      code: 0,
+      // 按年
+      data: [
+        {
+          name: '马尾全区',
+          data: [
+            { name: '2017年', value: 8465.0 },
+            { name: '2018年', value: 7513.0 }
+          ]
+        },
+        {
+          name: '亭江镇',
+          data: [
+            { name: '2017年', value: 0 },
+            { name: '2018年', value: 457.2164 }
+          ]
+        },
+        {
+          name: '马尾镇',
+          data: [{ name: '2017年', value: 0 }, { name: '2018年', value: 365 }]
+        },
+        {
+          name: '琅岐镇',
+          data: [{ name: '2017年', value: 0 }, { name: '2018年', value: 125 }]
+        },
+        {
+          name: '罗星街道',
+          data: [{ name: '2017年', value: 0 }, { name: '2018年', value: 648 }]
+        }
+      ]
+
+      // // 按月
+      // data: [
+      //   {
+      //     name: '马尾全区',
+      //     data: [
+      //       { name: '2017年1月', value: 356.0 },
+      //       { name: '2017年2月', value: 985.0 },
+      //       { name: '2017年3月', value: 625.0 },
+      //       { name: '2017年4月', value: 486.0 },
+      //       { name: '2017年5月', value: 985.0 },
+      //       { name: '2017年6月', value: 7513.0 }
+      //     ]
+      //   },
+      //   {
+      //     name: '亭江镇',
+      //     data: [
+      //       { name: '2017年1月', value: 356.0 },
+      //       { name: '2017年2月', value: 985.0 },
+      //       { name: '2017年3月', value: 625.0 },
+      //       { name: '2017年4月', value: 486.0 },
+      //       { name: '2017年5月', value: 985.0 },
+      //       { name: '2017年6月', value: 124.0 }
+      //     ]
+      //   },
+      //   {
+      //     name: '马尾镇',
+      //     data: [
+      //       { name: '2017年1月', value: 356.0 },
+      //       { name: '2017年2月', value: 985.0 },
+      //       { name: '2017年3月', value: 625.0 },
+      //       { name: '2017年4月', value: 486.0 },
+      //       { name: '2017年5月', value: 985.0 },
+      //       { name: '2017年6月', value: 124.0 }
+      //     ]
+      //   },
+      //   {
+      //     name: '琅岐镇',
+      //     data: [
+      //       { name: '2017年1月', value: 356.0 },
+      //       { name: '2017年2月', value: 985.0 },
+      //       { name: '2017年3月', value: 625.0 },
+      //       { name: '2017年4月', value: 486.0 },
+      //       { name: '2017年5月', value: 985.0 },
+      //       { name: '2017年6月', value: 124.0 }
+      //     ]
+      //   },
+      //   {
+      //     name: '罗星街道',
+      //     data: [
+      //       { name: '2017年1月', value: 356.0 },
+      //       { name: '2017年2月', value: 985.0 },
+      //       { name: '2017年3月', value: 625.0 },
+      //       { name: '2017年4月', value: 486.0 },
+      //       { name: '2017年5月', value: 985.0 },
+      //       { name: '2017年6月', value: 124.0 }
+      //     ]
+      //   }
+      // ]
+    })
+  })
+}
