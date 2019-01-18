@@ -88,7 +88,7 @@ export default {
           left: 20
         },
         legend: {
-          data: this.getLengthData(),
+          data: this.getLegendData(),
           textStyle: {
             color: '#fff',
             fontSize: 50
@@ -226,7 +226,7 @@ export default {
       }
     },
     //
-    getLengthData() {
+    getLegendData() {
       return this.list.map(d => d.name)
     },
     getXAxisData() {

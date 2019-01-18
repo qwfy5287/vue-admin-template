@@ -1,33 +1,45 @@
-// 大屏-柱状图
+// 大屏-折线图-双坐标
 <template>
   <div class="big-bg big-bar">
     <!-- big-bar -->
-    <Echarts :options="options"/>
+    <Echarts v-if="options" :options="options"/>
+    <NotDataChart v-else/>
   </div>
 </template>
 <script>
 import Echarts from 'vue-echarts'
 import { totalBudgetRevenue } from '@/api/echarts-big'
 import { echartSetting } from './js/echartSetting.js'
+
+import NotDataChart from './components/not-data-chart.vue'
+
 export default {
   name: 'BigBar',
-  components: { Echarts },
-  props: {},
+  components: { Echarts, NotDataChart },
+  props: {
+    list: { type: Array, default: null }
+  },
   data() {
     return {
-      options: null,
-      list: []
+      options: null
+      // list: []
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    list() {
+      this.init()
+    }
+  },
   mounted() {
     this.init()
   },
   methods: {
     init() {
-      // this.render()
-      this.fetchData()
+      if (this.list && this.list.length) {
+        this.render()
+      }
+      // this.fetchData()
     },
     async  fetchData() {
       const res = await totalBudgetRevenue()
@@ -48,18 +60,18 @@ export default {
         //     fontSize: 45
         //   }
         // },
-        color: ['#49E0ED', '#7BA2CD'],
+        color: ['#81f2ef', '#cccc69'],
         tooltip: {
           trigger: 'axis'
         },
         grid: {
           bottom: '15%',
           left: '12%',
-          right: '5%',
-          top: '15%'
+          right: '12%',
+          top: '18%'
         },
         legend: {
-          right: '6%',
+          // right: '15%',
           icon: 'roundRect',
           itemWidth: 60,
           itemHeight: 30,
@@ -96,10 +108,41 @@ export default {
         ],
         yAxis: [
           {
-            name: '单位：万元',
+            name: '单位：个',
             nameTextStyle: echartSetting.nameTextStyle,
             type: 'value',
             position: 'left',
+            axisLine: {
+              show: false
+            },
+            axisLabel: {
+              show: true,
+              margin: 40,
+              textStyle: {
+                color: '#A5D9E7',
+                fontSize: 40
+              }
+            },
+            axisTick: {
+              show: true,
+              length: 26,
+              lineStyle: {
+                color: '#6AC5D7'
+              }
+            },
+            splitLine: {
+              show: true,
+              lineStyle: {
+                type: 'solid',
+                color: '#24383D'
+              }
+            }
+          },
+          {
+            name: '单位：万元',
+            nameTextStyle: echartSetting.nameTextStyle,
+            type: 'value',
+            position: 'right',
             axisLine: {
               show: false
             },
@@ -162,20 +205,32 @@ export default {
         trigger: 'axis',
         padding: 15,
         textStyle: {
-          fontSize: echartSetting.fontSizeTooltip
+          fontSize: 45
         },
         formatter: function(params) {
           for (var i = 0; i < params.length; i++) {
             if (params[i].value !== '0') {
-              projectArray.push(
-                '</br><span style="display:inline-block;margin-right:5px;margin-top:20px;border-radius:10px;width:45px;height:45px;background-color:' +
-                colorArray[i] +
-                '"></span>' +
-                params[i].seriesName +
-                ':' +
-                params[i].value +
-                '万元'
-              )
+              if (params[i].seriesName === '项目数') {
+                projectArray.push(
+                  '</br><span style="display:inline-block;margin-right:5px;margin-top:20px;border-radius:10px;width:45px;height:45px;background-color:' +
+                  colorArray[i] +
+                  '"></span>' +
+                  params[i].seriesName +
+                  ':' +
+                  params[i].value +
+                  '个'
+                )
+              } else {
+                projectArray.push(
+                  '</br><span style="display:inline-block;margin-right:5px;margin-top:20px;border-radius:10px;width:45px;height:45px;background-color:' +
+                  colorArray[i] +
+                  '"></span>' +
+                  params[i].seriesName +
+                  ':' +
+                  params[i].value +
+                  '万元'
+                )
+              }
             }
           }
           if (projectArray.length !== 0) {
@@ -189,20 +244,6 @@ export default {
           }
         }
       }
-
-      // {
-      //   xAxis: {
-      //     type: 'category',
-      //     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      //   },
-      //   yAxis: {
-      //     type: 'value'
-      //   },
-      //   series: [{
-      //     data: [820, 932, 901, 934, 1290, 1330, 1320],
-      //     type: 'line'
-      //   }]
-      // }
     },
     //
     getLegendData() {
@@ -215,21 +256,64 @@ export default {
     getSeries() {
       const result = []
 
-      this.list.forEach(d => {
-        result.push({
-          name: d.name,
-          type: 'bar',
-          barWidth: '20%',
-          // lineStyle: {
-          //   normal: {
-          //     width: 3,
-          //     shadowColor: 'rgba(0,0,0,0.4)',
-          //     shadowBlur: 10,
-          //     shadowOffsetY: 10
-          //   }
-          // },
-          data: d.data
-        })
+      this.list.forEach((d, i) => {
+        if (i === 0) {
+          result.push({
+            name: d.name,
+            type: 'pictorialBar',
+            barCategoryGap: '0%',
+            symbol:
+              'path://d="M150 50 S150 130 130 130 L170 130 S150 130 150 50 Z"',
+            // itemStyle: {
+            //   normal: {
+            //     color: 'rgba(73, 224, 237,1)'
+            //   },
+            //   emphasis: {
+            //     opacity: 1
+            //   }
+            // },
+            data: d.data
+          })
+        } else {
+          result.push(
+            {
+              name: d.name,
+              type: 'line',
+              stack: '总量',
+              lineStyle: {
+                normal: {
+                  width: 5,
+                  color: '#CCCC69',
+                  shadowColor: 'rgba(0,0,0,0.4)',
+                  shadowBlur: 10,
+                  shadowOffsetY: 10
+                }
+              },
+              // 标记的图形
+              symbol: 'circle',
+              symbolSize: 20,
+              yAxisIndex: i,
+              data: d.data
+            }
+          )
+
+          // result.push({
+          //   name: d.name,
+          //   type: 'line',
+          //   barWidth: '20%',
+          //   // lineStyle: {
+          //   //   normal: {
+          //   //     width: 3,
+          //   //     shadowColor: 'rgba(0,0,0,0.4)',
+          //   //     shadowBlur: 10,
+          //   //     shadowOffsetY: 10
+          //   //   }
+          //   // },
+          //   lineStyle: echartSetting.lineStyle,
+          //   yAxisIndex: i,
+          //   data: d.data
+          // })
+        }
       })
 
       return result
@@ -268,7 +352,7 @@ export default {
   font: inherit;
   width: 100%;
   height: 100%;
-  height: calc(100vh - 50px);
+  // height: calc(100vh - 50px);
 
   .echarts {
     width: 100%;

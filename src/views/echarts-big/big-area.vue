@@ -2,45 +2,58 @@
 <template>
   <div class="big-bg big-bar">
     <!-- big-bar -->
-    <Echarts :options="options"/>
+    <Echarts v-if="options" :options="options"/>
+    <NotDataChart v-else/>
   </div>
 </template>
 <script>
 import Echarts from 'vue-echarts'
 import { totalBudgetRevenue } from '@/api/echarts-big'
 import { echartSetting } from './js/echartSetting.js'
+
+//
+import NotDataChart from './components/not-data-chart.vue'
+
 export default {
   name: 'BigBar',
-  components: { Echarts },
-  props: {},
+  components: { Echarts, NotDataChart },
+  props: {
+    list: { type: Array, default: null }
+  },
   data() {
     return {
-      options: null,
-      list: []
+      options: null
+      // list: []
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    list() {
+      this.init()
+    }
+  },
   mounted() {
     this.init()
   },
   methods: {
     init() {
-      // this.render()
-      this.fetchData()
+      if (this.list && this.list.length) {
+        this.render()
+      }
+      // this.fetchData()
     },
     async  fetchData() {
       const res = await totalBudgetRevenue()
       if (res.code === 0) {
-        // debugger
         this.list = res.data
         this.render()
       }
     },
     render() {
       this.options = {
+        color: ['#81F2EF', '#CECC7A'],
         // title: {
-        //   text: '单位：万元',
+        //   text: '单位：万美元',
         //   left: '6%',
         //   top: '4%',
         //   textStyle: {
@@ -48,16 +61,6 @@ export default {
         //     fontSize: 45
         //   }
         // },
-        color: ['#49E0ED', '#7BA2CD'],
-        tooltip: {
-          trigger: 'axis'
-        },
-        grid: {
-          bottom: '15%',
-          left: '12%',
-          right: '5%',
-          top: '15%'
-        },
         legend: {
           right: '6%',
           icon: 'roundRect',
@@ -68,15 +71,19 @@ export default {
             color: '#83B2BD',
             fontSize: echartSetting.fontSizeLegend
           },
-          // data: ["一般公共预算总收入", "地方一般公共预算总收入"]
           data: this.getLegendData()
+        },
+        grid: {
+          left: '6%',
+          right: '6%',
+          top: '15%',
+          bottom: '3%',
+          containLabel: true
         },
         xAxis: [
           {
             type: 'category',
-            axisTick: {
-              show: false
-            },
+            // boundaryGap: ['10%', '10%'],
             axisLabel: {
               fontSize: 40,
               margin: 40
@@ -88,66 +95,44 @@ export default {
                 width: 8
               }
             },
+            axisTick: {
+              show: true,
+              length: 13,
+              lineStyle: {
+                color: '#BDFFFD',
+                width: 6
+              }
+            },
             splitLine: {
               show: false
             },
-            data: this.getXAxisData()
+            boundaryGap: false,
+            data: []
           }
         ],
         yAxis: [
           {
-            name: '单位：万元',
+            name: '单位：万美元',
             nameTextStyle: echartSetting.nameTextStyle,
             type: 'value',
-            position: 'left',
-            axisLine: {
-              show: false
-            },
             axisLabel: {
               show: true,
-              margin: 40,
+              margin: 55,
               textStyle: {
                 color: '#A5D9E7',
                 fontSize: 40
               }
             },
-            axisTick: {
-              show: true,
-              length: 26,
-              lineStyle: {
-                color: '#6AC5D7'
-              }
-            },
-            splitLine: {
-              show: true,
-              lineStyle: {
-                type: 'solid',
-                color: '#24383D'
-              }
+            axisLine: {
+              show: false
             }
-          },
-          {
-            type: 'value',
-            show: false
-          }
-        ],
-        dataZoom: [
-          {
-            show: true,
-            height: 22,
-            xAxisIndex: [0],
-            bottom: 70,
-            start: 0,
-            end: 80,
-            color: '#fff'
-          },
-          {
-            type: 'inside',
-            show: true,
-            height: 22,
-            xAxisIndex: [0],
-            start: 10,
-            end: 35
+            // splitLine: {
+            //   show: true,
+            //   lineStyle: {
+            //     type: "solid",
+            //     color: "#24383D"
+            //   }
+            // }
           }
         ],
         series: this.getSeries()
@@ -168,13 +153,13 @@ export default {
           for (var i = 0; i < params.length; i++) {
             if (params[i].value !== '0') {
               projectArray.push(
-                '</br><span style="display:inline-block;margin-right:5px;margin-top:20px;border-radius:10px;width:45px;height:45px;background-color:' +
+                '</br><span style="display:inline-block;margin-right:5px;margin-top:20px;border-radius:10px;width:20px;height:20px;background-color:' +
                 colorArray[i] +
                 '"></span>' +
                 params[i].seriesName +
                 ':' +
                 params[i].value +
-                '万元'
+                '万美元'
               )
             }
           }
@@ -189,20 +174,6 @@ export default {
           }
         }
       }
-
-      // {
-      //   xAxis: {
-      //     type: 'category',
-      //     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      //   },
-      //   yAxis: {
-      //     type: 'value'
-      //   },
-      //   series: [{
-      //     data: [820, 932, 901, 934, 1290, 1330, 1320],
-      //     type: 'line'
-      //   }]
-      // }
     },
     //
     getLegendData() {
@@ -218,45 +189,15 @@ export default {
       this.list.forEach(d => {
         result.push({
           name: d.name,
-          type: 'bar',
-          barWidth: '20%',
-          // lineStyle: {
-          //   normal: {
-          //     width: 3,
-          //     shadowColor: 'rgba(0,0,0,0.4)',
-          //     shadowBlur: 10,
-          //     shadowOffsetY: 10
-          //   }
-          // },
+          type: 'line',
+          areaStyle: { normal: {}},
+          symbol: 'circle',
+          symbolSize: 15,
           data: d.data
         })
       })
 
       return result
-      // return [
-      //   {
-      //     name: '一般公共预算总收入',
-      //     type: 'bar',
-      //     barWidth: '20%',
-      //     lineStyle: {
-      //       normal: {
-      //         width: 3,
-      //         shadowColor: 'rgba(0,0,0,0.4)',
-      //         shadowBlur: 10,
-      //         shadowOffsetY: 10
-      //       }
-      //     },
-      //     data: [10, 20, 30]
-      //   },
-      //   {
-      //     name: '地方一般公共预算总收入',
-      //     type: 'bar',
-      //     yAxisIndex: 1,
-      //     barWidth: '20%',
-
-      //     data: []
-      //   }
-      // ]
     }
 
   }
