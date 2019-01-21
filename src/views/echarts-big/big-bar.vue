@@ -40,6 +40,7 @@ export default {
       }
     },
     render() {
+      optionBar.tooltip = getLegendData(this.list)
       optionBar.legend.data = getLegendData(this.list)
       optionBar.xAxis[0].data = getXAxisData(this.list)
       optionBar.series = getSeries(this.list)
