@@ -41,7 +41,7 @@ export default {
 .economic-kpi-investment {
   font: inherit;
 
-  height: 889px;
+  height: 640px;
 }
 </style>
 

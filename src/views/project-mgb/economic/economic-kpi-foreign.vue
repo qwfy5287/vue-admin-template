@@ -40,6 +40,8 @@ export default {
 <style lang="scss">
 .economic-kpi-foreign {
   font: inherit;
+
+  height: 681px;
 }
 </style>
 

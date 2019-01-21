@@ -35,5 +35,3 @@ export const echartSetting = {
     padding: [0, 0, 20, 0]
   }
 }
-
-export function ss() {}

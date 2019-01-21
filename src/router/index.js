@@ -175,7 +175,7 @@ export const constantRouterMap = [
 
   {
     path: '/echarts-big',
-    component: LayoutBig,
+    component: Layout,
     redirect: '/echarts-big/bar',
     name: 'EchartsBig',
     meta: { title: 'EchartsBig', icon: 'example' },

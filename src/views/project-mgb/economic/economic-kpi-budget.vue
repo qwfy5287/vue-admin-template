@@ -29,6 +29,9 @@ export default {
 <style lang="scss">
 .economic-kpi-budget {
   font: inherit;
+
+  height:620px;
+
 }
 </style>
 
