@@ -9,8 +9,8 @@
 import Echarts from 'vue-echarts'
 import { totalBudgetRevenue } from '@/api/echarts-big'
 // import { echartSetting, getOptionTooltip } from './js/echartSetting.js'
-import { getLegendData, getXAxisData, getSeries } from './js/echartCommon.js'
-import { optionBar } from './js/echartOptions.js'
+import { getLegendData, getXAxisData, getSeries, getOptionTooltip } from './js/echartCommon.js'
+import { getOptionBar } from './js/echartOptions.js'
 export default {
   name: 'BigBar',
   components: { Echarts },
@@ -40,11 +40,12 @@ export default {
       }
     },
     render() {
-      optionBar.tooltip = getLegendData(this.list)
-      optionBar.legend.data = getLegendData(this.list)
-      optionBar.xAxis[0].data = getXAxisData(this.list)
-      optionBar.series = getSeries(this.list)
-      this.options = optionBar
+      const tempOption = getOptionBar()
+      tempOption.tooltip = getOptionTooltip('万元')
+      tempOption.legend.data = getLegendData(this.list)
+      tempOption.xAxis[0].data = getXAxisData(this.list)
+      tempOption.series = getSeries(this.list)
+      this.options = tempOption
     }
 
   }

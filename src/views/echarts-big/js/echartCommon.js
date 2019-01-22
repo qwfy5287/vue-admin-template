@@ -23,7 +23,6 @@ export function getMarker(marker) {
  */
 export function getFormatter(series, units) {
   let result = ''
-  debugger
 
   const list = []
   let axisValueLabel = ''
@@ -54,6 +53,143 @@ export function getOptionTooltip(unit = '') {
       return getFormatter(series, unit)
     }
   }
+}
+
+/**
+ * 获取 grid
+ * @param {Object} param0
+ */
+export function getOptionGrid(
+  { top, right, bottom, left } = {
+    bottom: '15%',
+    left: '12%',
+    right: '5%',
+    top: '15%'
+  }
+) {
+  return {
+    top: top,
+    right: right,
+    bottom: bottom,
+    left: left
+  }
+}
+
+/**
+ * 获取 Legend
+ * @param {[]} data 数组
+ */
+export function getOptionLegend(data) {
+  return {
+    right: '6%',
+    icon: 'roundRect',
+    itemWidth: 60,
+    itemHeight: 30,
+    itemGap: 55,
+    textStyle: {
+      color: '#83B2BD',
+      fontSize: echartSetting.fontSizeLegend
+    },
+    data: data
+  }
+}
+
+export function getOptionXAxis(data) {
+  const xAxis = [
+    {
+      type: 'category',
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        fontSize: 40,
+        margin: 40
+      },
+      axisLine: {
+        show: false,
+        lineStyle: {
+          color: '#fff',
+          width: 8
+        }
+      },
+      splitLine: {
+        show: false
+      },
+      data: data
+    }
+  ]
+
+  return xAxis
+  // return Object.assign(xAxis, data)
+}
+
+/**
+ * 获取 yAxis
+ * @param {String} unit 单位
+ */
+export function getOptionYAxis(unit = '单位：万元') {
+  return [
+    {
+      name: unit,
+      nameTextStyle: echartSetting.nameTextStyle,
+      type: 'value',
+      position: 'left',
+      axisLine: {
+        show: false
+      },
+      axisLabel: {
+        show: true,
+        margin: 40,
+        textStyle: {
+          color: '#A5D9E7',
+          fontSize: 40
+        }
+      },
+      axisTick: {
+        show: true,
+        length: 26,
+        lineStyle: {
+          color: '#6AC5D7'
+        }
+      },
+      splitLine: {
+        show: true,
+        lineStyle: {
+          type: 'solid',
+          color: '#24383D'
+        }
+      }
+    },
+    {
+      type: 'value',
+      show: false
+    }
+  ]
+}
+
+/**
+ * 获取 zoom
+ */
+export function getOptionZoom() {
+  return [
+    {
+      show: true,
+      height: 22,
+      xAxisIndex: [0],
+      bottom: 70,
+      start: 0,
+      end: 80,
+      color: '#fff'
+    },
+    {
+      type: 'inside',
+      show: true,
+      height: 22,
+      xAxisIndex: [0],
+      start: 10,
+      end: 35
+    }
+  ]
 }
 
 // ===   数据处理   ===

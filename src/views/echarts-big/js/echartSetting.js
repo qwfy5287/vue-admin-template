@@ -6,11 +6,14 @@ const fontSizeTooltip = 45 // 50
 const fontSizeLegend = 50
 const fontSizeLabel = 50
 const fontColor = '#A5D9E7'
+// 色系列表
+const color = ['#49E0ED', '#7BA2CD']
 
 /**
  * 图表配置
  */
 export const echartSetting = {
+  color: color,
   fontSizeTooltip,
   fontSizeLegend,
   fontSizeLabel,

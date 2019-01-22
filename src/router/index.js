@@ -192,11 +192,18 @@ export const constantRouterMap = [
         component: () => import('@/views/echarts-big/big-bar'),
         meta: { title: 'Bar', icon: 'table' }
       },
+
       {
         path: 'big-bar-shadow',
         name: 'BarShadow',
         component: () => import('@/views/echarts-big/big-bar-shadow'),
         meta: { title: 'BarShadow', icon: 'table' }
+      },
+      {
+        path: 'big-area-fast',
+        name: 'Area',
+        component: () => import('@/views/echarts-big/big-area-fast'),
+        meta: { title: 'Area', icon: 'table' }
       },
       {
         path: 'pie',
