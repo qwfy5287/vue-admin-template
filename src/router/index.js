@@ -237,6 +237,23 @@ export const constantRouterMap = [
     ]
   },
 
+  // 厦门航空
+  {
+    path: '/project-xmhk',
+    component: Layout,
+    redirect: '/project-xmhk/label/label-main',
+    name: 'ProjectXmhk',
+    meta: { title: 'ProjectXmhk', icon: 'example' },
+    children: [
+      {
+        path: '/label/label-main',
+        name: 'Label',
+        component: () => import('@/views/project-xmhk/label/label-main'),
+        meta: { title: '标签管理', icon: 'table' }
+      }
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 
