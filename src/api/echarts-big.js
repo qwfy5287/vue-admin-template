@@ -150,3 +150,29 @@ export function forestEcologicalFund() {
     })
   })
 }
+
+/**
+ * 2018年1-9月财政收支
+ */
+export function financialRevenueExpenditure() {
+  return new Promise(resolve => {
+    resolve({
+      msg: 'success',
+      code: 0,
+      data: [
+        {
+          name: '一般公共预算总收入',
+          data: [
+            { name: '全区财政总收入', value: 74.0 },
+            { name: '地方级收入', value: 19.0 },
+            { name: '中央级收入', value: 9.0 },
+            { name: '政府性基金收入', value: 45.0 },
+            { name: '财政总支出', value: 81.0 },
+            { name: '一般公共预算支出', value: 34.0 },
+            { name: '政府性基金预算支出', value: 47.0 }
+          ]
+        }
+      ]
+    })
+  })
+}

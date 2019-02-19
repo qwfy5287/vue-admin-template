@@ -8,6 +8,12 @@
           <EconomicKpiMain/>
         </div>
       </template>
+      <template slot="three">
+        <div class="col-three-box">
+          <ColTitle title="财政指标"/>
+          <EconomicFinancialMain/>
+        </div>
+      </template>
     </PageSlot>
   </div>
 </template>
@@ -16,10 +22,11 @@ import PageSlot from './../components/page-slot.vue'
 
 import ColTitle from './../components/col-title.vue'
 import EconomicKpiMain from './economic-kpi-main.vue'
+import EconomicFinancialMain from './economic-financial-main.vue'
 
 export default {
   name: 'EconomicMain',
-  components: { PageSlot, ColTitle, EconomicKpiMain },
+  components: { PageSlot, ColTitle, EconomicKpiMain, EconomicFinancialMain },
   props: {},
   data() {
     return {}
@@ -41,6 +48,15 @@ export default {
   font: inherit;
 
   .col-one-box {
+    width: 2258px;
+    height: 100%;
+    background: url("./../assets/economic/economic-bg.svg") center center
+      no-repeat;
+    background-size: 100% 100%;
+    background-position-x: 1.1px;
+  }
+
+  .col-three-box {
     width: 2258px;
     height: 100%;
     background: url("./../assets/economic/economic-bg.svg") center center

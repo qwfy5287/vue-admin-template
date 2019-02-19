@@ -76,3 +76,19 @@ export function getOptionArea(list) {
     series: series
   }
 }
+
+/**
+ * 获取 基础配置 柱状图
+ */
+export function getOptionColumn() {
+  return {
+    color: echartSetting.color,
+    tooltip: getOptionTooltip('单位'),
+    grid: getOptionGrid(),
+    legend: getOptionLegend(getLegendData(dataBar)),
+    xAxis: getOptionYAxis(),
+    yAxis: getOptionXAxis(getXAxisData(dataBar)),
+    // dataZoom: getOptionZoom(),
+    series: getSeries(dataBar)
+  }
+}
