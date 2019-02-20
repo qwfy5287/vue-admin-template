@@ -14,6 +14,12 @@
           <EconomicFinancialMain/>
         </div>
       </template>
+      <template slot="four">
+        <div class="col-four-box">
+          <ColTitle title="科技指标"/>
+          <EconomicTechnologyMain/>
+        </div>
+      </template>
     </PageSlot>
   </div>
 </template>
@@ -23,10 +29,11 @@ import PageSlot from './../components/page-slot.vue'
 import ColTitle from './../components/col-title.vue'
 import EconomicKpiMain from './economic-kpi-main.vue'
 import EconomicFinancialMain from './economic-financial-main.vue'
+import EconomicTechnologyMain from './economic-technology-main.vue'
 
 export default {
   name: 'EconomicMain',
-  components: { PageSlot, ColTitle, EconomicKpiMain, EconomicFinancialMain },
+  components: { PageSlot, ColTitle, EconomicKpiMain, EconomicFinancialMain, EconomicTechnologyMain },
   props: {},
   data() {
     return {}
@@ -58,6 +65,15 @@ export default {
 
   .col-three-box {
     width: 2258px;
+    height: 100%;
+    background: url("./../assets/economic/economic-bg.svg") center center
+      no-repeat;
+    background-size: 100% 100%;
+    background-position-x: 1.1px;
+  }
+
+  .col-four-box {
+    width: 1868px;
     height: 100%;
     background: url("./../assets/economic/economic-bg.svg") center center
       no-repeat;

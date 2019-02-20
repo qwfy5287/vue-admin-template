@@ -1,18 +1,22 @@
 // 预算总收入
 <template>
-  <div class="economic-kpi-budget">
-    <!-- economic-kpi-budget -->
-    <BigColumn/>
+  <div class="economic-financial-revexp">
+    <!-- economic-financial-revexp -->
+    <BigColumn :list="list" unit="亿元"/>
   </div>
 </template>
 <script>
 import BigColumn from '@/views/echarts-big/big-column.vue'
+import { financialRevenueExpenditure } from './../api/economic'
+
 export default {
-  name: 'EconomicKpiBudget',
+  name: 'EconomicFinancialRevexp',
   components: { BigColumn },
   props: {},
   data() {
-    return {}
+    return {
+      list: null
+    }
   },
   computed: {},
   watch: {},
@@ -20,17 +24,25 @@ export default {
     this.init()
   },
   methods: {
-    init() { },
-    fetchData() { },
+    init() {
+      this.fetchData()
+    },
+    async fetchData() {
+      const res = await financialRevenueExpenditure()
+      if (res.code === 0) {
+        this.list = res.data
+        // this.render()
+      }
+    },
     render() { }
   }
 }
 </script>
 <style lang="scss">
-.economic-kpi-budget {
+.economic-financial-revexp {
   font: inherit;
 
-  height: 620px;
+  height: 823px;
 }
 </style>
 

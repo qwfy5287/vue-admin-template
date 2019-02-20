@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     init() { },
-    fetchData() { },
+    async fetchData() { },
     render() { }
   }
 }

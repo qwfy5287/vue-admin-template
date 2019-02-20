@@ -1,7 +1,7 @@
 // 大屏-柱状图
 <template>
-  <div class="big-bg big-column">
-    <!-- big-column -->
+  <div class="big-bg big-column-small">
+    <!-- big-column-small -->
     <Echarts :options="options"/>
   </div>
 </template>
@@ -12,7 +12,7 @@ import { financialRevenueExpenditure } from '@/api/echarts-big'
 import { getLegendData, getXAxisData, getSeries, getOptionTooltip } from './js/echartCommon.js'
 import { getOptionColumn } from './js/echartOptions.js'
 export default {
-  name: 'BigColumn',
+  name: 'BigColumnSmall',
   components: { Echarts },
   props: {
     list: { type: Array, default: null },
@@ -50,6 +50,15 @@ export default {
     },
     render() {
       const tempOption = getOptionColumn({ unit: this.unit })
+      tempOption.title = {
+        text: '单位：万元',
+        textStyle: {
+          color: '#83B2BD',
+          fontSize: 40
+        },
+        right: '0%',
+        top: '0%'
+      }
       tempOption.tooltip = getOptionTooltip(this.unit)
       tempOption.legend.data = getLegendData(this.list)
       tempOption.legend.show = false
@@ -60,12 +69,13 @@ export default {
         // top: '15%',
         left: '3%',
         right: '13%',
-        bottom: '3%',
+        bottom: '0%',
         containLabel: true
       }
+      tempOption.xAxis[0].show = false
       tempOption.yAxis[0].data = getXAxisData(this.list)
       tempOption.yAxis[0].axisLabel = {
-        fontSize: 40,
+        fontSize: 20,
         margin: 20
       }
       tempOption.series = this.getSeries(this.list)
@@ -105,7 +115,13 @@ export default {
         result.push({
           name: d.name,
           type: 'bar',
-          barWidth: '50%',
+          barWidth: '22px',
+          label: {
+            show: true,
+            color: '#fff',
+            fontSize: 30,
+            position: 'right'
+          },
           // lineStyle: {
           //   normal: {
           //     width: 3,
@@ -155,7 +171,7 @@ export default {
 </script>
 <style lang="scss">
 @import "./scss/style";
-.big-column {
+.big-column-small {
   font: inherit;
   width: 100%;
   height: 100%;

@@ -80,14 +80,30 @@ export function getOptionArea(list) {
 /**
  * 获取 基础配置 柱状图
  */
-export function getOptionColumn() {
+export function getOptionColumn({ unit }) {
   return {
     color: echartSetting.color,
-    tooltip: getOptionTooltip('单位'),
+    tooltip: getOptionTooltip(`${unit}`),
     grid: getOptionGrid(),
     legend: getOptionLegend(getLegendData(dataBar)),
-    xAxis: getOptionYAxis(),
+    xAxis: getOptionYAxis(`单位:${unit}`),
     yAxis: getOptionXAxis(getXAxisData(dataBar)),
+    // dataZoom: getOptionZoom(),
+    series: getSeries(dataBar)
+  }
+}
+
+/**
+ * 获取 基础配置 柱状图  小
+ */
+export function getOptionBarSmall({ unit }) {
+  return {
+    color: echartSetting.color,
+    tooltip: getOptionTooltip(`${unit}`),
+    grid: getOptionGrid(),
+    legend: getOptionLegend(getLegendData(dataBar)),
+    xAxis: getOptionXAxis(getXAxisData(dataBar)),
+    yAxis: getOptionYAxis(`单位:${unit}`),
     // dataZoom: getOptionZoom(),
     series: getSeries(dataBar)
   }

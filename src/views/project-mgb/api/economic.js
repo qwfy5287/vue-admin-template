@@ -89,3 +89,57 @@ export function kpiInvestment() {
     })
   })
 }
+
+/**
+ * 2018年1-9月财政收支
+ */
+export function financialRevenueExpenditure() {
+  return new Promise(resolve => {
+    resolve({
+      msg: 'success',
+      code: 0,
+      data: [
+        {
+          name: '2018年1-9月财政收支',
+          data: [
+            { name: '全区财政总收入', value: 74.0 },
+            { name: '地方级收入', value: 19.0 },
+            { name: '中央级收入', value: 9.0 },
+            { name: '政府性基金收入', value: 45.0 },
+            { name: '财政总支出', value: 81.0 },
+            { name: '一般公共预算支出', value: 34.0 },
+            { name: '政府性基金预算支出', value: 47.0 }
+          ]
+        }
+      ]
+    })
+  })
+}
+
+/**
+ * 科创投入统计
+ */
+export function technologyInvestment() {
+  return new Promise(resolve => {
+    resolve({
+      msg: 'success',
+      code: 0,
+      data: {
+        total: 12000,
+        data: [
+          {
+            name: '科创投入统计',
+            data: [
+              { name: '构建生态制度', value: 2301 },
+              { name: '强化综合防控', value: 2000 },
+              { name: '落实功能区划', value: 1800 },
+              { name: '坚持转型升级', value: 1600 },
+              { name: '探索共治共享', value: 1400 },
+              { name: '加强人文建设', value: 1200 }
+            ]
+          }
+        ]
+      }
+    })
+  })
+}

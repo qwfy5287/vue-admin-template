@@ -1,7 +1,7 @@
 // 大屏-柱状图
 <template>
-  <div class="big-bg big-column">
-    <!-- big-column -->
+  <div class="big-bg big-bar-small">
+    <!-- big-bar-small -->
     <Echarts :options="options"/>
   </div>
 </template>
@@ -10,9 +10,9 @@ import Echarts from 'vue-echarts'
 import { financialRevenueExpenditure } from '@/api/echarts-big'
 // import { echartSetting, getOptionTooltip } from './js/echartSetting.js'
 import { getLegendData, getXAxisData, getSeries, getOptionTooltip } from './js/echartCommon.js'
-import { getOptionColumn } from './js/echartOptions.js'
+import { getOptionBarSmall } from './js/echartOptions.js'
 export default {
-  name: 'BigColumn',
+  name: 'BigBarSmall',
   components: { Echarts },
   props: {
     list: { type: Array, default: null },
@@ -49,7 +49,7 @@ export default {
       }
     },
     render() {
-      const tempOption = getOptionColumn({ unit: this.unit })
+      const tempOption = getOptionBarSmall({ unit: this.unit })
       tempOption.tooltip = getOptionTooltip(this.unit)
       tempOption.legend.data = getLegendData(this.list)
       tempOption.legend.show = false
@@ -63,10 +63,10 @@ export default {
         bottom: '3%',
         containLabel: true
       }
-      tempOption.yAxis[0].data = getXAxisData(this.list)
-      tempOption.yAxis[0].axisLabel = {
+      tempOption.xAxis[0].data = getXAxisData(this.list)
+      tempOption.xAxis[0].axisLabel = {
         fontSize: 40,
-        margin: 20
+        margin: 0
       }
       tempOption.series = this.getSeries(this.list)
 
@@ -88,8 +88,8 @@ export default {
       var colorList = {
         type: 'linear',
         x: 0,
-        y: 0,
-        x2: 1,
+        y: 1,
+        x2: 0,
         y2: 0,
         colorStops: [{
           offset: 0,
@@ -155,7 +155,7 @@ export default {
 </script>
 <style lang="scss">
 @import "./scss/style";
-.big-column {
+.big-bar-small {
   font: inherit;
   width: 100%;
   height: 100%;
