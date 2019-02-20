@@ -9,10 +9,12 @@ export function getMarker(marker) {
 
   const element$ = document.createElement('div')
   element$.innerHTML = marker
-  element$.firstChild.style.width = '40px'
-  element$.firstChild.style.height = '40px'
+  if (marker) {
+    element$.firstChild.style.width = '40px'
+    element$.firstChild.style.height = '40px'
 
-  result = element$.innerHTML
+    result = element$.innerHTML
+  }
   return result
 }
 
