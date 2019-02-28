@@ -76,6 +76,12 @@ export const constantRouterMap = [
         name: 'Form',
         component: () => import('@/views/form/index'),
         meta: { title: 'Form', icon: 'form' }
+      },
+      {
+        path: 'DynamicRuleForm',
+        name: 'DynamicRuleForm',
+        component: () => import('@/views/form/DynamicRuleForm'),
+        meta: { title: '动态验证表单', icon: 'form' }
       }
     ]
   },
