@@ -1,12 +1,13 @@
 // 模板文件
 <template>
   <div class="label-tree">label-tree
+    <!-- default-expand-all -->
+    <!-- show-checkbox -->
     <el-tree
       :data="data5"
       :expand-on-click-node="false"
-      show-checkbox
       node-key="id"
-      default-expand-all
+      @node-click="nodeClick"
     >
       <span slot-scope="{ node, data }" class="custom-tree-node">
         <span class="label">{{ node.label }}</span>
@@ -15,7 +16,7 @@
             type="text"
             size="mini"
             icon="el-icon-circle-plus"
-            @click="() => append(data)"
+            @click="() => append(node,data)"
           />
           <el-button
             type="text"
@@ -29,6 +30,11 @@
   </div>
 </template>
 <script>
+
+import { queryAll } from '.././api/label'
+
+let id = 1000
+
 export default {
   name: 'LabelTree',
   components: {},
@@ -79,9 +85,32 @@ export default {
     this.init()
   },
   methods: {
-    init() { },
-    fetchData() { },
-    render() { }
+    init() {
+      this.fetchData()
+    },
+    fetchData() {
+      const list = queryAll()
+      this.data5 = list
+    },
+    render() { },
+    append(node, data) {
+      debugger
+
+      const newChild = { id: id++, label: 'testtest', children: [] }
+      if (!data.children) {
+        this.$set(data, 'children', [])
+      }
+
+      newChild.pId = data.id
+
+      data.children.push(newChild)
+
+      this.$emit('add', 'parentId', newChild)
+    },
+    nodeClick(data, node, component) {
+      debugger
+      this.$emit('nodeClick', data)
+    }
   }
 }
 </script>

@@ -9,7 +9,7 @@
 import Echarts from 'vue-echarts'
 import { financialRevenueExpenditure } from '@/api/echarts-big'
 // import { echartSetting, getOptionTooltip } from './js/echartSetting.js'
-import { getLegendData, getXAxisData, getSeries, getOptionTooltip } from './js/echartCommon.js'
+import { getLegendData, getXAxisData, getOptionTooltip } from './js/echartCommon.js'
 import { getOptionColumn } from './js/echartOptions.js'
 export default {
   name: 'BigColumnSmall',

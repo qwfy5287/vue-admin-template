@@ -9,7 +9,7 @@
 import Echarts from 'vue-echarts'
 import NotDataChart from './components/not-data-chart.vue'
 import { getOptionArea } from './js/echartOptions.js'
-import { getLegendData, getXAxisData, getSeries } from './js/echartCommon.js'
+// import { getLegendData, getXAxisData, getSeries } from './js/echartCommon.js'
 
 import { kpiForeign } from '@/views/project-mgb/api/economic'
 
