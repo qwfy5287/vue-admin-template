@@ -10,10 +10,10 @@
       <el-form-item label="标签代码" prop="labelCode">
         <el-input v-model="ruleForm.labelCode" />
       </el-form-item>
-      <el-form-item label="标签状态">
+      <el-form-item label="标签状态" prop="labelStatus">
         <el-input v-model="ruleForm.labelStatus" />
       </el-form-item>
-      <el-form-item label="标签类型">
+      <el-form-item label="标签类型" prop="labelType">
         <el-input v-model="ruleForm.labelType" />
       </el-form-item>
       <el-form-item label="标签应用">
@@ -25,7 +25,8 @@
 
       <!--  -->
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+        <!-- <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button> -->
+        <el-button type="primary" @click="save">save</el-button>
         <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
       </el-form-item>
     </el-form>
@@ -35,26 +36,50 @@
 export default {
   name: 'LabelFormInfo',
   components: {},
-  props: {},
+  props: {
+    params: { type: Object, default: null }
+  },
   data() {
     return {
       ruleForm: {},
       rules: {
         labelName: [
           { required: true, message: '请输入标签名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+        ],
+        labelCode: [
+          { required: true, message: '请输入标签代码', trigger: 'blur' },
+          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+        ],
+        labelStatus: [
+          { required: true, message: '请输入标签状态', trigger: 'blur' },
+          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+        ],
+        labelType: [
+          { required: true, message: '请输入标签类型', trigger: 'blur' },
+          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
         ]
       }}
   },
   computed: {},
-  watch: {},
+  watch: {
+    params: function() {
+      this.init()
+    }
+  },
   mounted() {
     this.init()
   },
   methods: {
-    init() { },
+    init() {
+      if (this.params && this.params.ruleForm) {
+        this.render()
+      }
+    },
     async fetchData() { },
-    render() { },
+    render() {
+      this.ruleForm = this.params.ruleForm
+    },
     //
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -65,6 +90,21 @@ export default {
           return false
         }
       })
+    },
+    save(formName) {
+      let result = false
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          // alert('submit!')
+          // debugger
+          result = this.ruleForm
+          this.$emit('save', result)
+        } else {
+          console.log('error submit!!')
+          result = false
+        }
+      })
+      return result
     }
   }
 }

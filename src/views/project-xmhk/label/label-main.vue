@@ -10,23 +10,24 @@
       </el-col>
       <el-col :span="16">right
 
-        <div/>
+        <div>
+          <el-button type="primary" @click="save">保存</el-button>
+        </div>
         <el-tabs v-model="tabsActive" type="border-card">
-          <el-tab-pane v-for="(item,index) in tabs" :key="'label'+index" :label="item.label" :name="item.value">
+          <el-tab-pane v-for="(item,index) in filterTabs" :key="'label'+index" :label="item.label" :name="item.value">
             {{ item.label }}
-            <LabelFormInfo v-if="item.value==='info'" />
-            <LabelFormValue v-if="item.value==='value'" />
-            <LabelFormQuery v-if="item.value==='query'" />
-            <LabelFormDisplay v-if="item.value==='display'" />
-            <LabelFormArchive v-if="item.value==='archive'" />
-
+            <LabelFormInfo v-if="item.value==='info'" ref="labelFormInfo" :params="labelFormInfoParams" />
+            <LabelFormValue v-if="item.value==='value'" ref="labelFormValue" :params="labelFormValueParams" />
+            <LabelFormQuery v-if="item.value==='query'" ref="labelFormQuery" />
+            <LabelFormDisplay v-if="item.value==='display'" ref="labelFormDisplay" />
+            <LabelFormArchive v-if="item.value==='archive'" ref="labelFormArchive" />
           </el-tab-pane>
           <!-- <el-tab-pane label="用户管理">用户管理</el-tab-pane>
           <el-tab-pane label="配置管理">配置管理</el-tab-pane>
           <el-tab-pane label="角色管理">角色管理</el-tab-pane>
           <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane> -->
         </el-tabs>
-        <div>
+        <div v-if="false">
           <!-- 标签信息 -->
           <div>
             <h3>标签信息</h3>
@@ -196,10 +197,41 @@ export default {
       tabsActive: 'info',
       tabsModelArchive: ['info', 'archive', 'display'],
       tabsModelGroup: ['info', 'display'],
-      tabsModelValue: ['info', 'value', 'query', 'display']
+      tabsModelValue: ['info', 'value', 'query', 'display'],
+      labelFormInfoParams: null,
+      labelFormValueParams: null,
+      labelFormQueryParams: null,
+      labelFormDisplayParams: null,
+      labelFormArchiveParams: null,
+      labelType: {
+        document: 'document',
+        group: 'group',
+        data: 'data'
+      },
+      curLabelType: 'document'
     }
   },
-  computed: {},
+  computed: {
+    filterTabs() {
+      let result = null
+
+      switch (this.curLabelType) {
+        case this.labelType.document:
+          result = this.tabs.filter(d => this.tabsModelArchive.includes(d.value))
+          break
+        case this.labelType.group:
+          result = this.tabs.filter(d => this.tabsModelGroup.includes(d.value))
+          break
+        case this.labelType.data:
+          result = this.tabs.filter(d => this.tabsModelValue.includes(d.value))
+          break
+        default:
+          break
+      }
+
+      return result
+    }
+  },
   watch: {},
   mounted() {
     this.init()
@@ -213,10 +245,84 @@ export default {
     },
     labelTreeNodeClick(data) {
       this.form = data
+      this.curLabelType = data.labelType
+      // this.setTabsByLabelType(data.labelType)
+      //
+      this.labelFormInfoParams = {
+        ruleForm: {
+          labelName: data.labelName,
+          labelCode: data.labelCode,
+          labelStatus: data.labelStatus,
+          labelType: data.labelType,
+          labelApp: data.labelApp,
+          description: data.description
+        }
+      }
+      //
+      const detailSettingsObj = JSON.parse(data.detailSettings)
+      const connectionSettingsObj = JSON.parse(data.connectionSettings)
+
+      this.labelFormValueParams = {
+        ruleForm: {
+          generation: data.generation,
+          valueType: data.valueType,
+          minValue: detailSettingsObj.minValue,
+          maxValue: detailSettingsObj.maxValue,
+          systemDictionary: detailSettingsObj.systemDictionary,
+          enumeration: detailSettingsObj.enumeration,
+          dataStoreMapping: detailSettingsObj.dataStoreMapping,
+          include_in_all: connectionSettingsObj.include_in_all,
+          labelValue: detailSettingsObj.labelValue
+        }
+      }
     },
     // 添加一级标签
     addTopLabelClick() {
       this.tabs = this.tabs.filter(d => this.tabsModelArchive.includes(d.value))
+    },
+    save() {
+      let result = {}
+      result = this.form
+
+      //
+      const labelFormInfoResult = this.$refs['labelFormInfo'][0].save()
+      if (labelFormInfoResult) {
+        result = Object.assign({}, result, labelFormInfoResult)
+      } else {
+        this.tabsActive = 'info'
+        return false
+      }
+
+      //
+      const labelFormValueResult = this.$refs['labelFormValue'][0].save()
+      if (labelFormValueResult) {
+        result = Object.assign({}, result, labelFormValueResult)
+      } else {
+        this.tabsActive = 'value'
+        return false
+      }
+
+      if (result) {
+        console.log(result)
+      } else {
+        this.$message('submit error')
+      }
+    },
+    setTabsByLabelType(labelType) {
+      debugger
+      switch (labelType) {
+        case this.labelType.document:
+          this.tabs = this.tabs.filter(d => this.tabsModelArchive.includes(d.value))
+          break
+        case this.labelType.group:
+          this.tabs = this.tabs.filter(d => this.tabsModelGroup.includes(d.value))
+          break
+        case this.labelType.data:
+          this.tabs = this.tabs.filter(d => this.tabsModelValue.includes(d.value))
+          break
+        default:
+          break
+      }
     }
   }
 }

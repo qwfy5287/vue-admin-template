@@ -80,7 +80,11 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    // params: function() {
+    //   this.init()
+    // }
+  },
   mounted() {
     this.init()
   },
@@ -108,7 +112,6 @@ export default {
       this.$emit('add', 'parentId', newChild)
     },
     nodeClick(data, node, component) {
-      debugger
       this.$emit('nodeClick', data)
     }
   }
