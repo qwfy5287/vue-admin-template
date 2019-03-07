@@ -18,8 +18,8 @@
             {{ item.label }}
             <LabelFormInfo v-if="item.value==='info'" ref="labelFormInfo" :params="labelFormInfoParams" />
             <LabelFormValue v-if="item.value==='value'" ref="labelFormValue" :params="labelFormValueParams" />
-            <LabelFormQuery v-if="item.value==='query'" ref="labelFormQuery" />
-            <LabelFormDisplay v-if="item.value==='display'" ref="labelFormDisplay" />
+            <LabelFormQuery v-if="item.value==='query'" ref="labelFormQuery" :params="labelFormQueryParams" />
+            <LabelFormDisplay v-if="item.value==='display'" ref="labelFormDisplay" :params="labelFormDisplayParams" />
             <LabelFormArchive v-if="item.value==='archive'" ref="labelFormArchive" />
           </el-tab-pane>
           <!-- <el-tab-pane label="用户管理">用户管理</el-tab-pane>
@@ -275,6 +275,29 @@ export default {
           labelValue: detailSettingsObj.labelValue
         }
       }
+
+      //
+      this.labelFormQueryParams = {
+        ruleForm: {
+          query_condition_term: detailSettingsObj.query_condition_term,
+          query_pre_processor: detailSettingsObj.query_pre_processor,
+          encodingOptions: detailSettingsObj.encodingOptions,
+          chooseToSupport: detailSettingsObj.chooseToSupport,
+          defaultDisplayNumber: detailSettingsObj.defaultDisplayNumber,
+          customRange: detailSettingsObj.customRange,
+          labelOrder: detailSettingsObj.labelOrder
+        }
+      }
+
+      //
+      this.labelFormDisplayParams = {
+        displayInDataSheet: detailSettingsObj.displayInDataSheet,
+        showInDetailFlag: detailSettingsObj.showInDetailFlag,
+        interfaceFlag: data.interfaceFlag,
+        codingMapping: detailSettingsObj.codingMapping,
+        dictionaryMapping: detailSettingsObj.dictionaryMapping,
+        data_show_format: detailSettingsObj.data_show_format
+      }
     },
     // 添加一级标签
     addTopLabelClick() {
@@ -299,6 +322,24 @@ export default {
         result = Object.assign({}, result, labelFormValueResult)
       } else {
         this.tabsActive = 'value'
+        return false
+      }
+
+      //
+      const labelFormQueryResult = this.$refs['labelFormQuery'][0].save()
+      if (labelFormQueryResult) {
+        result = Object.assign({}, result, labelFormQueryResult)
+      } else {
+        this.tabsActive = 'query'
+        return false
+      }
+
+      //
+      const labelFormDisplayResult = this.$refs['labelFormDisplay'][0].save()
+      if (labelFormDisplayResult) {
+        result = Object.assign({}, result, labelFormDisplayResult)
+      } else {
+        this.tabsActive = 'display'
         return false
       }
 

@@ -2,7 +2,7 @@
 <template>
   <div class="label-form-query">
     label-form-query
-    <el-form :model="ruleForm" label-width="180px" >
+    <el-form ref="ruleForm" :rules="ruleForm" :model="ruleForm" label-width="180px" >
       <el-form-item label="支持精确匹配查询">
         <el-input v-model="ruleForm.query_condition_term" />
       </el-form-item>
@@ -35,7 +35,9 @@
 export default {
   name: 'LabelFormQuery',
   components: {},
-  props: {},
+  props: {
+    params: { type: Object, default: null }
+  },
   data() {
     return {
       ruleForm: {},
