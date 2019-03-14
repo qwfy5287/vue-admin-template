@@ -70,6 +70,9 @@ export const constantRouterMap = [
   {
     path: '/form',
     component: Layout,
+    redirect: '/example/table',
+    name: 'Form',
+    meta: { title: 'Form', icon: 'form' },
     children: [
       {
         path: 'index',
@@ -178,6 +181,22 @@ export const constantRouterMap = [
   //     // }
   //   ]
   // },
+
+  {
+    path: '/echarts-pack',
+    component: Layout,
+    redirect: '/echarts-pack/ClickChart',
+    name: 'EchartsPack',
+    meta: { title: 'EchartsPack', icon: 'example' },
+    children: [
+      {
+        path: 'ClickChart',
+        name: 'ClickChart',
+        component: () => import('@/views/echarts-pack/ClickChart'),
+        meta: { title: 'ClickChart', icon: 'table' }
+      }
+    ]
+  },
 
   {
     path: '/echarts-big',
