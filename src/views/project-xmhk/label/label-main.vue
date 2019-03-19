@@ -16,134 +16,13 @@
         <el-tabs v-model="tabsActive" type="border-card">
           <el-tab-pane v-for="(item,index) in filterTabs" :key="'label'+index" :label="item.label" :name="item.value">
             {{ item.label }}
-            <LabelFormInfo v-if="item.value==='info'" ref="labelFormInfo" :params="labelFormInfoParams" />
-            <LabelFormValue v-if="item.value==='value'" ref="labelFormValue" :params="labelFormValueParams" />
-            <LabelFormQuery v-if="item.value==='query'" ref="labelFormQuery" :params="labelFormQueryParams" />
-            <LabelFormDisplay v-if="item.value==='display'" ref="labelFormDisplay" :params="labelFormDisplayParams" />
-            <LabelFormArchive v-if="item.value==='archive'" ref="labelFormArchive" />
+            <LabelFormInfo v-if="item.value==='info'" ref="labelFormInfo" :params="labelFormInfoParams" :label-type="curLabelType" />
+            <LabelFormValue v-if="item.value==='value'" ref="labelFormValue" :params="labelFormValueParams" :label-type="curLabelType" />
+            <LabelFormQuery v-if="item.value==='query'" ref="labelFormQuery" :params="labelFormQueryParams" :label-type="curLabelType"/>
+            <LabelFormDisplay v-if="item.value==='display'" ref="labelFormDisplay" :params="labelFormDisplayParams" :label-type="curLabelType" />
+            <LabelFormArchive v-if="item.value==='archive'" ref="labelFormArchive" :params="labelFormArchiveParams" :label-type="curLabelType" />
           </el-tab-pane>
-          <!-- <el-tab-pane label="用户管理">用户管理</el-tab-pane>
-          <el-tab-pane label="配置管理">配置管理</el-tab-pane>
-          <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-          <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane> -->
         </el-tabs>
-        <div v-if="false">
-          <!-- 标签信息 -->
-          <div>
-            <h3>标签信息</h3>
-            <el-form :v-model="form" label-width="180px" >
-              <el-form-item label="标签名称">
-                <el-input v-model="form.labelName" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="标签代码">
-                <el-input v-model="form.labelCode" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="标签状态">
-                <el-input v-model="form.labelStatus" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="标签类型">
-                <el-input v-model="form.labelType" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="标签应用">
-                <el-input v-model="form.labelApp" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="标签描述">
-                <el-input v-model="form.description" />
-              </el-form-item>
-            </el-form>
-          </div>
-
-          <!-- 标签值设置 -->
-          <div>
-            <h3>标签值设置</h3>
-            <el-form :v-model="form" label-width="180px" >
-              <el-form-item label="生成方式">
-                <el-input v-model="form.generation" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="标签值类型">
-                <el-input v-model="form.valueType" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="最小值">
-                <el-input v-model="form.minValue" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="最大值">
-                <el-input v-model="form.maxValue" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="关联系统字典">
-                <el-input v-model="form.systemDictionary" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="合法值枚举">
-                <el-input v-model="form.enumeration" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="数据库存储映射">
-                <el-input v-model="form.dataStoreMapping" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="是否添加到多字段搜索">
-                <el-input v-model="form.include_in_all" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="标签默认值">
-                <el-input v-model="form.labelValue" />
-              </el-form-item>
-            </el-form>
-          </div>
-
-          <!-- 查询条件设置 -->
-          <div>
-            <h3>查询条件设置</h3>
-            <el-form :v-model="form" label-width="180px" >
-              <el-form-item label="支持精确匹配查询">
-                <el-input v-model="form.query_condition_term" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="查询预处理">
-                <el-input v-model="form.query_pre_processor" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="使用关联的字典编码作为选项">
-                <el-input v-model="form.encodingOptions" />
-              </el-form-item>
-              <!-- todo: 选项名称 -->
-              <!-- <el-form-item :v-model="form" label="使用关联的字典编码作为选项">
-              <el-input v-model="form.encodingOptions" />
-            </el-form-item> -->
-              <el-form-item :v-model="form" label="支持多选">
-                <el-input v-model="form.chooseToSupport" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="默认显示个数">
-                <el-input v-model="form.defaultDisplayNumber" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="允许自定义区间">
-                <el-input v-model="form.customRange" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="排序支持">
-                <el-input v-model="form.labelOrder" />
-              </el-form-item>
-            </el-form>
-          </div>
-
-          <!-- 显示信息设置 -->
-          <div>
-            <h3>显示信息设置</h3>
-            <el-form :v-model="form" label-width="180px" >
-              <el-form-item label="显示于数据列表">
-                <el-input v-model="form.displayInDataSheet" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="显示于画面详细页">
-                <el-input v-model="form.showInDetailFlag" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="是否可以调用接口">
-                <el-input v-model="form.interfaceFlag" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="使用关联的字典编码映射出显示信息">
-                <el-input v-model="form.codingMapping" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="自定义字典映射">
-                <el-input v-model="form.dictionaryMapping" />
-              </el-form-item>
-              <el-form-item :v-model="form" label="数据显示格式">
-                <el-input v-model="form.data_show_format" />
-              </el-form-item>
-            </el-form>
-          </div>
-        </div>
 
       </el-col>
     </el-row>
@@ -246,9 +125,137 @@ export default {
     labelTreeNodeClick(data) {
       this.form = data
       this.curLabelType = data.labelType
-      // this.setTabsByLabelType(data.labelType)
-      //
-      this.labelFormInfoParams = {
+
+      const dashboardUrlObj = JSON.parse(data.dashboardUrl)
+      const detailSettingsObj = JSON.parse(data.detailSettings)
+      const connectionSettingsObj = JSON.parse(data.connectionSettings)
+
+      this.setLabelFormInfoParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
+      this.setLabelFormValueParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
+      this.setLabelFormQueryParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
+      this.setLabelFormDisplayParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
+      this.setLabelFormArchiveParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
+    },
+    // 添加一级标签
+    addTopLabelClick() {
+      this.tabs = this.tabs.filter(d => this.tabsModelArchive.includes(d.value))
+    },
+    save() {
+      let result = {}
+      result = this.form
+
+      switch (this.curLabelType) {
+        case this.labelType.document:
+          this.updateLabelFormInfoResult(result) &&
+          this.updateLabelFormDisplayResult(result) &&
+          this.updateLabelFormArchiveResult(result)
+
+          break
+        case this.labelType.group:
+
+          break
+        case this.labelType.data:
+
+          break
+        default:
+          break
+      }
+
+      if (result) {
+        console.log(result)
+      } else {
+        this.$message('submit error')
+      }
+    },
+    // 更新参数
+    updateLabelFormInfoResult(result) {
+      let subResult = false
+      const labelFormInfoResult = this.$refs['labelFormInfo'][0].save()
+      debugger
+
+      if (labelFormInfoResult) {
+        result = Object.assign({}, result, labelFormInfoResult)
+        subResult = true
+      } else {
+        this.tabsActive = 'info'
+        subResult = false
+      }
+      return subResult
+    },
+    updateLabelFormValueResult(result) {
+      let subResult = false
+      const labelFormValueResult = this.$refs['labelFormValue'][0].save()
+      debugger
+
+      if (labelFormValueResult) {
+        result = Object.assign({}, result, labelFormValueResult)
+        subResult = true
+      } else {
+        this.tabsActive = 'value'
+        subResult = false
+      }
+      return subResult
+    },
+    updateLabelFormQueryResult(result) {
+      let subResult = false
+      const labelFormQueryResult = this.$refs['labelFormQuery'][0].save()
+      debugger
+
+      if (labelFormQueryResult) {
+        result = Object.assign({}, result, labelFormQueryResult)
+        subResult = true
+      } else {
+        this.tabsActive = 'query'
+        subResult = false
+      }
+      return subResult
+    },
+    updateLabelFormDisplayResult(result) {
+      let subResult = false
+      const labelFormDisplayResult = this.$refs['labelFormDisplay'][0].save()
+      debugger
+
+      if (labelFormDisplayResult) {
+        switch (this.curLabelType) {
+          case this.labelType.document:
+
+            break
+          case this.labelType.group:
+
+            break
+          case this.labelType.data:
+
+            break
+          default:
+            break
+        }
+        result = Object.assign({}, result, labelFormDisplayResult)
+        subResult = true
+      } else {
+        this.tabsActive = 'display'
+        subResult = false
+      }
+      return subResult
+    },
+    updateLabelFormArchiveResult(result) {
+      let subResult = false
+      const labelFormArchiveResult = this.$refs['labelFormArchive'][0].save()
+      debugger
+
+      if (labelFormArchiveResult) {
+        result = Object.assign({}, result, labelFormArchiveResult)
+        subResult = true
+      } else {
+        this.tabsActive = 'archive'
+        subResult = false
+      }
+      return subResult
+    },
+    // 设置参数
+    setLabelFormInfoParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj }) {
+      let result = null
+
+      result = {
         ruleForm: {
           labelName: data.labelName,
           labelCode: data.labelCode,
@@ -258,26 +265,50 @@ export default {
           description: data.description
         }
       }
-      //
-      const detailSettingsObj = JSON.parse(data.detailSettings)
-      const connectionSettingsObj = JSON.parse(data.connectionSettings)
 
-      this.labelFormValueParams = {
-        ruleForm: {
-          generation: data.generation,
-          valueType: data.valueType,
-          minValue: detailSettingsObj.minValue,
-          maxValue: detailSettingsObj.maxValue,
-          systemDictionary: detailSettingsObj.systemDictionary,
-          enumeration: detailSettingsObj.enumeration,
-          dataStoreMapping: detailSettingsObj.dataStoreMapping,
-          include_in_all: connectionSettingsObj.include_in_all,
-          labelValue: detailSettingsObj.labelValue
-        }
+      this.labelFormInfoParams = result
+    },
+    setLabelFormValueParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj }) {
+      let result = null
+      switch (this.curLabelType) {
+        case this.labelType.document:
+          result = {
+            ruleForm: {
+            }
+          }
+          break
+        case this.labelType.group:
+          result = {
+            ruleForm: {
+            }
+          }
+          break
+        case this.labelType.data:
+          result = {
+            ruleForm: {
+              generation: data.generation,
+              valueType: data.valueType,
+              minValue: detailSettingsObj.minValue,
+              maxValue: detailSettingsObj.maxValue,
+              systemDictionary: detailSettingsObj.systemDictionary,
+              enumeration: detailSettingsObj.enumeration,
+              dataStoreMapping: detailSettingsObj.dataStoreMapping,
+              include_in_all: connectionSettingsObj.include_in_all,
+              labelValue: detailSettingsObj.labelValue
+            }
+          }
+          break
+
+        default:
+          break
       }
 
-      //
-      this.labelFormQueryParams = {
+      this.labelFormValueParams = result
+    },
+    setLabelFormQueryParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj }) {
+      let result = null
+
+      result = {
         ruleForm: {
           query_condition_term: detailSettingsObj.query_condition_term,
           query_pre_processor: detailSettingsObj.query_pre_processor,
@@ -289,81 +320,56 @@ export default {
         }
       }
 
-      //
-      this.labelFormDisplayParams = {
-        displayInDataSheet: detailSettingsObj.displayInDataSheet,
-        showInDetailFlag: detailSettingsObj.showInDetailFlag,
-        interfaceFlag: data.interfaceFlag,
-        codingMapping: detailSettingsObj.codingMapping,
-        dictionaryMapping: detailSettingsObj.dictionaryMapping,
-        data_show_format: detailSettingsObj.data_show_format
-      }
+      this.labelFormQueryParams = result
     },
-    // 添加一级标签
-    addTopLabelClick() {
-      this.tabs = this.tabs.filter(d => this.tabsModelArchive.includes(d.value))
-    },
-    save() {
-      let result = {}
-      result = this.form
-
-      //
-      const labelFormInfoResult = this.$refs['labelFormInfo'][0].save()
-      if (labelFormInfoResult) {
-        result = Object.assign({}, result, labelFormInfoResult)
-      } else {
-        this.tabsActive = 'info'
-        return false
-      }
-
-      //
-      const labelFormValueResult = this.$refs['labelFormValue'][0].save()
-      if (labelFormValueResult) {
-        result = Object.assign({}, result, labelFormValueResult)
-      } else {
-        this.tabsActive = 'value'
-        return false
-      }
-
-      //
-      const labelFormQueryResult = this.$refs['labelFormQuery'][0].save()
-      if (labelFormQueryResult) {
-        result = Object.assign({}, result, labelFormQueryResult)
-      } else {
-        this.tabsActive = 'query'
-        return false
-      }
-
-      //
-      const labelFormDisplayResult = this.$refs['labelFormDisplay'][0].save()
-      if (labelFormDisplayResult) {
-        result = Object.assign({}, result, labelFormDisplayResult)
-      } else {
-        this.tabsActive = 'display'
-        return false
-      }
-
-      if (result) {
-        console.log(result)
-      } else {
-        this.$message('submit error')
-      }
-    },
-    setTabsByLabelType(labelType) {
-      debugger
-      switch (labelType) {
+    setLabelFormDisplayParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj }) {
+      let result = null
+      switch (this.curLabelType) {
         case this.labelType.document:
-          this.tabs = this.tabs.filter(d => this.tabsModelArchive.includes(d.value))
+          result = {
+            ruleForm: {
+              analysis: dashboardUrlObj.analysis.url,
+              detail: dashboardUrlObj.detail.url
+            }
+          }
           break
         case this.labelType.group:
-          this.tabs = this.tabs.filter(d => this.tabsModelGroup.includes(d.value))
+          result = {
+            ruleForm: {
+            }
+          }
           break
         case this.labelType.data:
-          this.tabs = this.tabs.filter(d => this.tabsModelValue.includes(d.value))
+          result = {
+            ruleForm: {
+              displayInDataSheet: detailSettingsObj.displayInDataSheet,
+              showInDetailFlag: detailSettingsObj.showInDetailFlag,
+              interfaceFlag: data.interfaceFlag,
+              codingMapping: detailSettingsObj.codingMapping,
+              dictionaryMapping: detailSettingsObj.dictionaryMapping,
+              data_show_format: detailSettingsObj.data_show_format
+            }
+          }
           break
+
         default:
           break
       }
+
+      this.labelFormDisplayParams = result
+    },
+    setLabelFormArchiveParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj }) {
+      let result = null
+      result = {
+        ruleForm: {
+          docMethod: connectionSettingsObj.docMethod,
+          separateRwFlag: connectionSettingsObj.separateRwFlag,
+          keymapping: connectionSettingsObj.keymapping,
+          idSave: connectionSettingsObj.idSave,
+          advancedConfig: connectionSettingsObj.advancedConfig
+        }
+      }
+      this.labelFormArchiveParams = result
     }
   }
 }

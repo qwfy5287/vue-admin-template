@@ -11,10 +11,13 @@
         <el-input v-model="ruleForm.labelCode" />
       </el-form-item>
       <el-form-item label="标签状态" prop="labelStatus">
-        <el-input v-model="ruleForm.labelStatus" />
+        <!-- {{ ruleForm.labelStatus }} -->
+        <!-- <el-input v-model="ruleForm.labelStatus" /> -->
+        <ElSelectCodes v-model="ruleForm.labelStatus" />
       </el-form-item>
       <el-form-item label="标签类型" prop="labelType">
-        <el-input v-model="ruleForm.labelType" />
+        <!-- <el-input v-model="ruleForm.labelType" /> -->
+        <ElSelectCodes v-model="ruleForm.labelType" code="PORTRAIT_LABEL_TYPE" />
       </el-form-item>
       <el-form-item label="标签应用">
         <el-input v-model="ruleForm.labelApp" />
@@ -33,9 +36,11 @@
   </div>
 </template>
 <script>
+import ElSelectCodes from '.././components/ElSelectCodes'
+
 export default {
   name: 'LabelFormInfo',
-  components: {},
+  components: { ElSelectCodes },
   props: {
     params: { type: Object, default: null }
   },
