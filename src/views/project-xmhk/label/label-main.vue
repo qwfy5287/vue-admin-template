@@ -171,7 +171,6 @@ export default {
     updateLabelFormInfoResult(result) {
       let subResult = false
       const labelFormInfoResult = this.$refs['labelFormInfo'][0].save()
-      debugger
 
       if (labelFormInfoResult) {
         result = Object.assign({}, result, labelFormInfoResult)
@@ -213,11 +212,16 @@ export default {
     updateLabelFormDisplayResult(result) {
       let subResult = false
       const labelFormDisplayResult = this.$refs['labelFormDisplay'][0].save()
-      debugger
 
       if (labelFormDisplayResult) {
+        let dashboardUrl
         switch (this.curLabelType) {
           case this.labelType.document:
+            dashboardUrl = {
+              'analysis': { 'url': labelFormDisplayResult.analysis },
+              'detail': { 'url': labelFormDisplayResult.detail }
+            }
+            result = Object.assign({}, result, { dashboardUrl: JSON.stringify(dashboardUrl) })
 
             break
           case this.labelType.group:
@@ -229,7 +233,6 @@ export default {
           default:
             break
         }
-        result = Object.assign({}, result, labelFormDisplayResult)
         subResult = true
       } else {
         this.tabsActive = 'display'
@@ -240,10 +243,13 @@ export default {
     updateLabelFormArchiveResult(result) {
       let subResult = false
       const labelFormArchiveResult = this.$refs['labelFormArchive'][0].save()
-      debugger
 
       if (labelFormArchiveResult) {
-        result = Object.assign({}, result, labelFormArchiveResult)
+        const connectionSettingsPre = JSON.parse(result.connectionSettings)
+        const connectionSettings = Object.assign({}, connectionSettingsPre, labelFormArchiveResult)
+        // {"docMethod":"split_no","separateRwFlag":0,"keymapping":"es_jcsx_rksx_rowkey","idSave":"true","advancedConfig":""}
+
+        result = Object.assign({}, result, { connectionSettings: JSON.stringify(connectionSettings) })
         subResult = true
       } else {
         this.tabsActive = 'archive'
