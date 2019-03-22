@@ -64,7 +64,8 @@ export default {
           { required: true, message: '请输入标签类型', trigger: 'blur' },
           { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
         ]
-      }}
+      }
+    }
   },
   computed: {},
   watch: {
