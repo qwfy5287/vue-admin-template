@@ -4,18 +4,23 @@
     label-form-archive
     {{ params }}
     <el-form ref="ruleForm" :rules="rules" :model="ruleForm" label-width="180px" >
-      <el-form-item label="归档方式" prop="docMethod" >
-        <!-- <el-input v-model="ruleForm.docMethod" /> -->
+      <!-- <el-form-item label="归档方式" prop="docMethod" >
         <ElSelectCodes v-model="ruleForm.docMethod" code="LABEL_DOC_METHOD" />
-      </el-form-item>
-      <el-form-item label="支持读写分离">
-        <!-- <el-input v-model="ruleForm.separateRwFlag" /> -->
+      </el-form-item> -->
+      <!-- <el-form-item label="支持读写分离">
         <el-switch
           v-model="ruleForm.separateRwFlag"
           :active-value="1"
           :inactive-value="0"/>
-      </el-form-item>
+      </el-form-item> -->
       <!-- todo: 索引设置 -->
+      <el-form-item label="索引">
+        <!-- <el-input v-model="ruleForm.indexSettings" /> -->
+        <div>
+          索引配置信息展示
+        </div>
+        <el-button @click="btnAddIndexSettings">添加索引</el-button>
+      </el-form-item>
       <el-form-item label="主键映射字段">
         <el-input v-model="ruleForm.keymapping" />
       </el-form-item>
@@ -31,14 +36,18 @@
       </el-form-item>
     </el-form>
 
+    <LabelModelIndex ref="labelModelIndex" />
+
   </div>
 </template>
 <script>
 import ElSelectCodes from '.././components/ElSelectCodes'
 
+import LabelModelIndex from './label-model-index'
+
 export default {
   name: 'LabelFormArchive',
-  components: { ElSelectCodes },
+  components: { ElSelectCodes, LabelModelIndex },
   props: {
     params: { type: Object, default: null },
     labelType: { type: String, default: null }
@@ -89,6 +98,10 @@ export default {
         }
       })
       return result
+    },
+    // 添加索引配置
+    btnAddIndexSettings() {
+      this.$refs.labelModelIndex.edit()
     }
   }
 }

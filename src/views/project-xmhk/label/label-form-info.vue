@@ -19,11 +19,12 @@
         <!-- <el-input v-model="ruleForm.labelType" /> -->
         <ElSelectCodes v-model="ruleForm.labelType" code="PORTRAIT_LABEL_TYPE" />
       </el-form-item>
-      <el-form-item label="标签应用">
+      <!-- <el-form-item label="标签应用">
         <el-input v-model="ruleForm.labelApp" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="标签描述">
-        <el-input v-model="ruleForm.description" />
+        <!-- textarea -->
+        <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="ruleForm.description" type="textarea" />
       </el-form-item>
 
       <!--  -->

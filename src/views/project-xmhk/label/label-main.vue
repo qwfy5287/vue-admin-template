@@ -19,7 +19,7 @@
             <LabelFormInfo v-if="item.value==='info'" ref="labelFormInfo" :params="labelFormInfoParams" :label-type="curLabelType" />
             <LabelFormValue v-if="item.value==='value'" ref="labelFormValue" :params="labelFormValueParams" :label-type="curLabelType" />
             <LabelFormQuery v-if="item.value==='query'" ref="labelFormQuery" :params="labelFormQueryParams" :label-type="curLabelType"/>
-            <LabelFormDisplay v-if="item.value==='display'" ref="labelFormDisplay" :params="labelFormDisplayParams" :label-type="curLabelType" />
+            <!-- <LabelFormDisplay v-if="item.value==='display'" ref="labelFormDisplay" :params="labelFormDisplayParams" :label-type="curLabelType" /> -->
             <LabelFormArchive v-if="item.value==='archive'" ref="labelFormArchive" :params="labelFormArchiveParams" :label-type="curLabelType" />
           </el-tab-pane>
         </el-tabs>
@@ -34,12 +34,14 @@ import LabelTree from './label-tree'
 import LabelFormInfo from './label-form-info'
 import LabelFormValue from './label-form-value'
 import LabelFormQuery from './label-form-query'
-import LabelFormDisplay from './label-form-display'
+// import LabelFormDisplay from './label-form-display'
 import LabelFormArchive from './label-form-archive'
 
 export default {
   name: 'LabelMain',
-  components: { LabelTree, LabelFormInfo, LabelFormValue, LabelFormQuery, LabelFormDisplay, LabelFormArchive },
+  components: { LabelTree, LabelFormInfo, LabelFormValue, LabelFormQuery,
+    //  LabelFormDisplay,
+    LabelFormArchive },
   props: {},
   data() {
     return {
@@ -64,11 +66,13 @@ export default {
         label: '查询条件设置',
         value: 'query',
         has: true
-      }, {
-        label: '显示信息设置',
-        value: 'display',
-        has: true
-      }, {
+      },
+      // {
+      //   label: '显示信息设置',
+      //   value: 'display',
+      //   has: true
+      // },
+      {
         label: '归档设置',
         value: 'archive',
         has: true
@@ -80,7 +84,7 @@ export default {
       labelFormInfoParams: null,
       labelFormValueParams: null,
       labelFormQueryParams: null,
-      labelFormDisplayParams: null,
+      // labelFormDisplayParams: null,
       labelFormArchiveParams: null,
       labelType: {
         document: 'document',
@@ -133,7 +137,7 @@ export default {
       this.setLabelFormInfoParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
       this.setLabelFormValueParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
       this.setLabelFormQueryParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
-      this.setLabelFormDisplayParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
+      // this.setLabelFormDisplayParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
       this.setLabelFormArchiveParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj })
     },
     // 添加一级标签
@@ -147,7 +151,7 @@ export default {
       switch (this.curLabelType) {
         case this.labelType.document:
           this.updateLabelFormInfoResult(result) &&
-          this.updateLabelFormDisplayResult(result) &&
+          // this.updateLabelFormDisplayResult(result) &&
           this.updateLabelFormArchiveResult(result)
 
           break
@@ -209,37 +213,37 @@ export default {
       }
       return subResult
     },
-    updateLabelFormDisplayResult(result) {
-      let subResult = false
-      const labelFormDisplayResult = this.$refs['labelFormDisplay'][0].save()
+    // updateLabelFormDisplayResult(result) {
+    //   let subResult = false
+    //   const labelFormDisplayResult = this.$refs['labelFormDisplay'][0].save()
 
-      if (labelFormDisplayResult) {
-        let dashboardUrl
-        switch (this.curLabelType) {
-          case this.labelType.document:
-            dashboardUrl = {
-              'analysis': { 'url': labelFormDisplayResult.analysis },
-              'detail': { 'url': labelFormDisplayResult.detail }
-            }
-            result = Object.assign({}, result, { dashboardUrl: JSON.stringify(dashboardUrl) })
+    //   if (labelFormDisplayResult) {
+    //     let dashboardUrl
+    //     switch (this.curLabelType) {
+    //       case this.labelType.document:
+    //         dashboardUrl = {
+    //           'analysis': { 'url': labelFormDisplayResult.analysis },
+    //           'detail': { 'url': labelFormDisplayResult.detail }
+    //         }
+    //         result = Object.assign({}, result, { dashboardUrl: JSON.stringify(dashboardUrl) })
 
-            break
-          case this.labelType.group:
+    //         break
+    //       case this.labelType.group:
 
-            break
-          case this.labelType.data:
+    //         break
+    //       case this.labelType.data:
 
-            break
-          default:
-            break
-        }
-        subResult = true
-      } else {
-        this.tabsActive = 'display'
-        subResult = false
-      }
-      return subResult
-    },
+    //         break
+    //       default:
+    //         break
+    //     }
+    //     subResult = true
+    //   } else {
+    //     this.tabsActive = 'display'
+    //     subResult = false
+    //   }
+    //   return subResult
+    // },
     updateLabelFormArchiveResult(result) {
       let subResult = false
       const labelFormArchiveResult = this.$refs['labelFormArchive'][0].save()
@@ -267,7 +271,7 @@ export default {
           labelCode: data.labelCode,
           labelStatus: data.labelStatus,
           labelType: data.labelType,
-          labelApp: data.labelApp,
+          // labelApp: data.labelApp,
           description: data.description
         }
       }
@@ -328,42 +332,42 @@ export default {
 
       this.labelFormQueryParams = result
     },
-    setLabelFormDisplayParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj }) {
-      let result = null
-      switch (this.curLabelType) {
-        case this.labelType.document:
-          result = {
-            ruleForm: {
-              analysis: dashboardUrlObj.analysis.url,
-              detail: dashboardUrlObj.detail.url
-            }
-          }
-          break
-        case this.labelType.group:
-          result = {
-            ruleForm: {
-            }
-          }
-          break
-        case this.labelType.data:
-          result = {
-            ruleForm: {
-              displayInDataSheet: detailSettingsObj.displayInDataSheet,
-              showInDetailFlag: detailSettingsObj.showInDetailFlag,
-              interfaceFlag: data.interfaceFlag,
-              codingMapping: detailSettingsObj.codingMapping,
-              dictionaryMapping: detailSettingsObj.dictionaryMapping,
-              data_show_format: detailSettingsObj.data_show_format
-            }
-          }
-          break
+    // setLabelFormDisplayParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj }) {
+    //   let result = null
+    //   switch (this.curLabelType) {
+    //     case this.labelType.document:
+    //       result = {
+    //         ruleForm: {
+    //           analysis: dashboardUrlObj.analysis.url,
+    //           detail: dashboardUrlObj.detail.url
+    //         }
+    //       }
+    //       break
+    //     case this.labelType.group:
+    //       result = {
+    //         ruleForm: {
+    //         }
+    //       }
+    //       break
+    //     case this.labelType.data:
+    //       result = {
+    //         ruleForm: {
+    //           displayInDataSheet: detailSettingsObj.displayInDataSheet,
+    //           showInDetailFlag: detailSettingsObj.showInDetailFlag,
+    //           interfaceFlag: data.interfaceFlag,
+    //           codingMapping: detailSettingsObj.codingMapping,
+    //           dictionaryMapping: detailSettingsObj.dictionaryMapping,
+    //           data_show_format: detailSettingsObj.data_show_format
+    //         }
+    //       }
+    //       break
 
-        default:
-          break
-      }
+    //     default:
+    //       break
+    //   }
 
-      this.labelFormDisplayParams = result
-    },
+    //   this.labelFormDisplayParams = result
+    // },
     setLabelFormArchiveParams({ data, dashboardUrlObj, detailSettingsObj, connectionSettingsObj }) {
       let result = null
       result = {
