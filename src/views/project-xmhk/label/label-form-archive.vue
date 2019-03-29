@@ -64,7 +64,7 @@ export default {
       },
       rules: {
         indexSettings: [
-          { required: true, message: '请选择', trigger: 'blur' }
+          { required: true, message: '请选择', trigger: 'change' }
         ],
         docMethod: [
           { required: true, message: '请选择归档方式', trigger: 'change' }

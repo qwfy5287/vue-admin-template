@@ -46,13 +46,34 @@ export default {
   data() {
     return {
       form: {
-        name: '',
-        labelName: '标签名称',
-        labelCode: '标签代码',
-        labelStatus: '标签状态',
-        labelType: '标签类型',
-        labelApp: '标签应用',
-        description: '标签描述'
+        // name: '',
+        // labelName: '标签名称',
+        // labelCode: '标签代码',
+        // labelStatus: '标签状态',
+        // labelType: '标签类型',
+        // labelApp: '标签应用',
+        // description: '标签描述'
+        labelCode: null,
+        labelName: null,
+        description: null,
+        valueType: null,
+        // labelApp: null,
+        labelStatus: null,
+        realtimeFlag: null,
+        companyId: null,
+        // createUser: 1,
+        updateUser: null,
+        updateTime: null,
+        parentId: null,
+        generation: '',
+        dashboardUrl: '',
+        connectionSettings:
+        '{}',
+        detailSettings:
+        '{}',
+        dataStoreMapping: null,
+        labelType: null,
+        interfaceFlag: null
       },
       tabs: [{
         label: '标签信息',
@@ -150,6 +171,8 @@ export default {
 
       switch (this.curLabelType) {
         case this.labelType.document:
+          debugger
+
           this.updateLabelFormInfoResult(result) &&
           // this.updateLabelFormDisplayResult(result) &&
           this.updateLabelFormArchiveResult(result)
@@ -173,6 +196,7 @@ export default {
     },
     // 更新参数
     updateLabelFormInfoResult(result) {
+      debugger
       let subResult = false
       const labelFormInfoResult = this.$refs['labelFormInfo'][0].save()
 

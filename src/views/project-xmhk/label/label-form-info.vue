@@ -48,7 +48,12 @@ export default {
   data() {
     return {
       ruleForm: {
-
+        labelName: null,
+        labelCode: null,
+        labelStatus: null,
+        labelType: null,
+        // labelApp: data.labelApp,
+        description: null
       },
       rules: {
         labelName: [
@@ -87,7 +92,9 @@ export default {
     },
     async fetchData() { },
     render() {
-      this.ruleForm = this.params.ruleForm
+      // this.ruleForm = this.params.ruleForm
+      // eslint-disable-next-line no-undef
+      this.ruleForm = _.merge({}, this.ruleForm, this.params.ruleForm)
     },
     //
     submitForm(formName) {
