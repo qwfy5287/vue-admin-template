@@ -372,8 +372,9 @@ export default {
       let result = null
       result = {
         ruleForm: {
-          docMethod: connectionSettingsObj.docMethod,
-          separateRwFlag: connectionSettingsObj.separateRwFlag,
+          // docMethod: connectionSettingsObj.docMethod,
+          // separateRwFlag: connectionSettingsObj.separateRwFlag,
+          indexSettings: null,
           keymapping: connectionSettingsObj.keymapping,
           idSave: connectionSettingsObj.idSave,
           advancedConfig: connectionSettingsObj.advancedConfig

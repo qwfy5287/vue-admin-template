@@ -47,7 +47,9 @@ export default {
   },
   data() {
     return {
-      ruleForm: {},
+      ruleForm: {
+
+      },
       rules: {
         labelName: [
           { required: true, message: '请输入标签名称', trigger: 'blur' },
@@ -103,7 +105,7 @@ export default {
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
           // alert('submit!')
-          // debugger
+          debugger
           result = this.ruleForm
           this.$emit('save', result)
         } else {

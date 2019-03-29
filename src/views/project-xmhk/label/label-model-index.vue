@@ -4,7 +4,7 @@
   <div class="label-model-index">
     <!-- label-model-index -->
     <el-dialog
-      :title="`${preTitle}接口`"
+      :title="`${preTitle}索引`"
       :visible.sync="dialogVisible"
       width="60%"
       top="5vh"
@@ -17,45 +17,23 @@
             <el-form-item label="集群名称" prop="clusterName" >
               <ElSelectCodes v-model="ruleForm.clusterName" code="ES_CLUSTER_NAME" />
             </el-form-item>
-            <el-form-item label="索引名称" prop="name">
-              <el-input v-model="ruleForm.name" />
+            <el-form-item label="索引名称" prop="index">
+              <el-input v-model="ruleForm.index" />
             </el-form-item>
-            <el-form-item label="分组编码" prop="code">
-              <!-- <el-input v-model="ruleForm.code" />
-              <el-button @click="genCode()">
-                生成编码
-              </el-button> -->
-
-              <el-input v-model="ruleForm.code" class="input-with-select">
-                <el-button slot="append" @click="genCode()">
-                  生成编码
-                </el-button>
-              </el-input>
+            <el-form-item label="索引类型" prop="type">
+              <el-input v-model="ruleForm.type" />
             </el-form-item>
-            <el-form-item label="标签库" prop="label">
-              <el-select v-model="ruleForm.label">
-                <el-option v-for="option in labelOptions" :key="option.value" :label="option.label" :value="option.value" />
-              </el-select>
+            <el-form-item label="索引空间" prop="nodeZone">
+              <ElSelectMultiCodes v-model="ruleForm.nodeZone" code="NODE_ZONE" />
             </el-form-item>
-            <el-form-item v-if="ruleForm.label" label="查询标签" prop="subLabels">
-              <!-- <el-button @click="setsubLabels">
-                设置
-              </el-button> -->
-              <el-input v-show="false" v-model="ruleForm.subLabels" />
-
-              <!-- @check-change="handleCheckChange" -->
-              <!-- :props="props" -->
-              <!-- <div class="tree-box">
-                <el-tree
-                  :data="treeData"
-                  show-checkbox
-                  :props="defaultProps"
-                  default-expand-all
-                />
-              </div> -->
+            <el-form-item label="分片数" prop="shards">
+              <el-input-number v-model.number="ruleForm.shards" :min="1" controls-position="right" />
             </el-form-item>
-            <el-form-item label="备注" prop="remark">
-              <el-input v-model="ruleForm.remark" />
+            <el-form-item label="副本数" prop="replicas">
+              <el-input-number v-model.number="ruleForm.replicas" :disabled="true" controls-position="right"/>
+            </el-form-item>
+            <el-form-item label="权重" prop="weight">
+              <el-input-number v-model.number="ruleForm.weight" :disabled="true" controls-position="right"/>
             </el-form-item>
 
             <!-- <el-form-item>
@@ -77,17 +55,18 @@
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button type="primary" @click="save">确 定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
 import ElSelectCodes from '.././components/ElSelectCodes'
+import ElSelectMultiCodes from '.././components/ElSelectMultiCodes'
 
 export default {
   name: 'LabelModelIndex',
-  components: { ElSelectCodes },
+  components: { ElSelectCodes, ElSelectMultiCodes },
   props: {},
   data() {
     return {
@@ -95,25 +74,29 @@ export default {
       dialogVisible: false,
       //
       ruleForm: {
-        name: null,
-        code: null,
-        label: null,
-        subLabels: null,
-        remark: null,
-        clusterName: null
+        clusterName: null,
+        index: null,
+        type: 'default',
+        nodeZone: [],
+        shards: null,
+        replicas: null,
+        weight: null
       },
       rules: {
-        name: [
+        clusterName: [
+          { required: true, message: '请输入', trigger: 'change ' }
+        ],
+        index: [
           { required: true, message: '请输入', trigger: 'blur ' }
         ],
-        code: [
+        type: [
           { required: true, message: '请输入', trigger: 'blur ' }
-        ],
-        subLabels: [
-          { required: true, message: '请选择', trigger: 'change ' }
-        ],
-        label: [
-          { required: true, message: '请选择', trigger: 'change' }
+        ], shards: [
+          { required: true, message: '请输入', trigger: 'blur ' }
+        ], replicas: [
+          { required: true, message: '请输入', trigger: 'blur ' }
+        ], weight: [
+          { required: true, message: '请输入', trigger: 'blur ' }
         ]
       },
       labelOptions: [{
@@ -221,25 +204,21 @@ export default {
         }
       })
     },
-    //  生成编码
-    genCode() {
-      this.ruleForm.code = this.uuid()
-    },
-    //  生成 uuid
-    uuid() {
-      var s = []
-      var hexDigits = '0123456789abcdef'
-      for (var i = 0; i < 36; i++) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
-      }
-      s[14] = '4' // bits 12-15 of the time_hi_and_version field to 0010
-      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1) // bits 6-7 of the clock_seq_hi_and_reserved to 01
-      s[8] = s[13] = s[18] = s[23] = '-'
-
-      var uuid = s.join('')
-      // 去掉 -
-      uuid = uuid.replace(new RegExp('-', 'g'), '')
-      return uuid
+    save(formName) {
+      let result = false
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          // alert('submit!')
+          // debugger
+          result = this.ruleForm
+          this.$emit('save', result)
+          this.dialogVisible = false
+        } else {
+          console.log('error submit!!')
+          result = false
+        }
+      })
+      return result
     }
   }
 }

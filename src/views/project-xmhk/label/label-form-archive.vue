@@ -14,8 +14,10 @@
           :inactive-value="0"/>
       </el-form-item> -->
       <!-- todo: 索引设置 -->
-      <el-form-item label="索引">
+      <el-form-item label="索引" prop="indexSettings">
         <!-- <el-input v-model="ruleForm.indexSettings" /> -->
+
+        <el-input v-model="ruleForm.indexSettings" />
         <div>
           索引配置信息展示
         </div>
@@ -36,7 +38,7 @@
       </el-form-item>
     </el-form>
 
-    <LabelModelIndex ref="labelModelIndex" />
+    <LabelModelIndex ref="labelModelIndex" @save="labelModelIndexSave" />
 
   </div>
 </template>
@@ -54,8 +56,16 @@ export default {
   },
   data() {
     return {
-      ruleForm: {},
+      ruleForm: {
+        indexSettings: null,
+        keymapping: null,
+        idSave: null,
+        advancedConfig: null
+      },
       rules: {
+        indexSettings: [
+          { required: true, message: '请选择', trigger: 'blur' }
+        ],
         docMethod: [
           { required: true, message: '请选择归档方式', trigger: 'change' }
           // { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
@@ -83,7 +93,8 @@ export default {
     },
     async fetchData() { },
     render() {
-      this.ruleForm = this.params.ruleForm
+      // eslint-disable-next-line no-undef
+      this.ruleForm = _.merge({}, this.ruleForm, this.params.ruleForm)
     },
     //
     save(formName) {
@@ -102,6 +113,10 @@ export default {
     // 添加索引配置
     btnAddIndexSettings() {
       this.$refs.labelModelIndex.edit()
+    },
+    labelModelIndexSave(val) {
+      debugger
+      this.ruleForm.indexSettings = val
     }
   }
 }
