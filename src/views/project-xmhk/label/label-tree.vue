@@ -120,6 +120,10 @@ export default {
 <style lang="scss">
 .label-tree {
   font: inherit;
+
+  .label {
+    color: black;
+  }
 }
 </style>
 
